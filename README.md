@@ -4,4 +4,5 @@
 ### Installation
 ### Uninstall
 ### Shortcuts
+### Features List
 ### Contributing

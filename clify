@@ -1,0 +1,127 @@
+#!/usr/bin/env python3
+import os
+import sys
+import curses
+import utils
+from Menu import Menu
+from MenuBar import MenuBar
+
+
+# cli commands
+
+menuBar = MenuBar()
+
+
+def help():
+    print("help")
+
+
+def playlist():
+    # for p in playlists:
+    #     print(p['name'])
+    curses.wrapper(PlaylistNav)
+
+
+class PlaylistNav(object):
+    def __init__(self, stdscreen):
+        self.screen = stdscreen
+        curses.curs_set(0)
+        self.submenu = None
+
+        self.playlists = self.getPlaylists()
+        main_menu_items = [(p['name'], self.playlistMenu)
+                           for p in self.playlists]
+        main_menu = Menu(main_menu_items, self.screen, "Playlists", menuBar)
+        main_menu.display()
+
+    def formatSong(self, track):
+        song = track['name']
+        dur = track['duration_ms']
+        time = utils.msFormat(dur)
+        artistsStr = track['artists'][0]['name']
+        cols = self.screen.getmaxyx()[1] - 2
+        timeChars = 8
+        songChars = int(cols * .5)
+        artistsChars = int(cols * .5) - timeChars
+
+        formatted = "{:{}.{}}{:{}.{}}{:{}}".format(
+            song, songChars, songChars - 2, artistsStr, artistsChars, artistsChars - 2, time, timeChars)
+        return formatted
+
+    def playlistMenu(self, playlistIndex):
+        # init shortcuts
+        shortcuts = {
+            115: self.shuffle,  # s -> shuffle
+            32: self.playpause
+        }
+        self.songs = self.getSongs(playlistIndex)
+        self.playlistId = self.getPlaylistId(playlistIndex)
+        playlistName = self.playlists[playlistIndex]['name']
+        submenu_items = [(self.formatSong(s['track']), self.playSong)
+                         for s in self.songs]
+        self.submenu = Menu(submenu_items, self.screen,
+                            playlistName, menuBar, shortcuts)
+        # if song in items s playing, set it as active
+        self.submenu.display()
+
+    def shuffle(self):
+        return
+
+    def playpause(self):
+        menuBar.player.togglePlay()
+
+    def getPlaylistId(self, playlistIndex):
+        playlist = self.playlists[playlistIndex]
+        playlist_id = playlist['id']
+        return playlist_id
+
+    def getPlaylists(self):
+        user_id = utils.readConfig()['userId']
+        playlistsEndpoint = f"/users/{user_id}/playlists"
+        playlists = utils.spotifyGetAPI(playlistsEndpoint)['items']
+        return playlists
+
+    def getSongs(self, playlistIndex):
+        playlist_id = self.getPlaylistId(playlistIndex)
+        songs = utils.spotifyGetAPI(
+            f"/playlists/{playlist_id}/tracks")['items']
+        return songs
+
+    def playSong(self, position, index=None):
+        if index == None:
+            index = position
+        # set song as active in list
+        self.submenu.active = index
+        playlistId = self.playlistId
+        song = self.songs[index]
+        songId = song['track']['id']
+        songURI = f"spotify:track:{songId}"
+        playlistURI = f"spotify:playlist:{playlistId}"
+        osascript = f'tell application "Spotify" to play track "{songURI}" in context "{playlistURI}"'
+        cmd = f"osascript -e '{osascript}'"
+        os.system(cmd)
+
+
+if __name__ == "__main__":
+    # config = utils.readConfig()
+    # config = {'hasVerified': False}
+    # utils.writeConfig(config)
+
+    config = utils.readConfig()
+    if not config.get("hasVerified", False):
+        utils.verify()
+    commands = ["pl"]
+    args = sys.argv[1:]
+    if len(args) < 1:
+        help()
+        quit()
+
+    command = args[0]
+    if command not in commands:
+        print(f"{command} is an invalid command")
+        quit()
+
+    # run command with query
+    if command == "pl":
+        playlist()
+    quit()

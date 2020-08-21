@@ -14,13 +14,14 @@ class Player():
         self.currentArtist = None
         self.currentAlbum = None
         self.currentTime = 0
-        self.currentTotalTime = 0
+        self.currentTotalTime = 1
 
         # start thread that gets player context
+        self.stopThread = False
         threading.Thread(target=self.getPlayerContext).start()
 
     def getPlayerContext(self):
-        while True:
+        while not self.stopThread:
             context = utils.spotifyGetAPI("/me/player")
             self.playing = context['is_playing']
             self.shuffle = context['shuffle_state']

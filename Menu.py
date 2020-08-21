@@ -2,6 +2,7 @@ import curses
 from curses import panel
 import math
 import MenuBar
+import utils
 
 
 class Menu(object):
@@ -131,7 +132,7 @@ class Menu(object):
                 # exit submenu
                 break
             elif key == 113:
-                quit()
+                utils.killProgram(self.menuBar.player)
             elif key == 110:
                 if self.currPage < self.pages:
                     self.position = 0

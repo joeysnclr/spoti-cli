@@ -8,6 +8,11 @@ import os
 import sys
 
 
+def killProgram(player):
+    player.stopThread = True
+    sys.exit()
+
+
 def readConfig():
     with open("./clify.json", "r+") as file:
         config = json.load(file)

@@ -3,19 +3,7 @@ import json
 import os
 import logging
 import requests
-
-
-# config methods
-def readConfig():
-    with open("./clify.json", "r+") as file:
-        config = json.load(file)
-    return config
-
-
-def writeConfig(config):
-    with open("./clify.json", "w+") as file:
-        json.dump(config, file)
-
+import utils
 
 # create flask app
 app = Flask(__name__)
@@ -34,9 +22,9 @@ def hello_world():
         return "error! try again please"
     code = request.args.get("code")
 
-    config = readConfig()
+    config = utils.readConfig()
     config['code'] = code
-    writeConfig(config)
+    utils.writeConfig(config)
 
     return "enjoy clify!"
 

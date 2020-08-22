@@ -8,19 +8,27 @@ import os
 import sys
 
 
-def killProgram(player):
-    player.stopThread = True
-    sys.exit()
+configPath = os.path.abspath(os.path.expanduser("~/.terminal-spotify.json"))
+cachePath = os.path.abspath(
+    os.path.expanduser("~/.terminal-spotify-cache.json"))
+
+
+def createConfig():
+    config = {'hasVerified': False}
+    open(configPath, 'a').close()
+    writeConfig(config)
 
 
 def readConfig():
-    with open("./clify.json", "r+") as file:
+    if not os.path.exists(configPath):
+        createConfig()
+    with open(configPath, "r+") as file:
         config = json.load(file)
     return config
 
 
 def writeConfig(config):
-    with open("./clify.json", "w+") as file:
+    with open(configPath, "w") as file:
         json.dump(config, file)
 
 
@@ -30,7 +38,45 @@ def msFormat(ms):
     return f"{minutes}:{seconds:02}"
 
 
-def spotifyGetAPI(endpoint):
+def createCache():
+    cache = {}
+    open(cachePath, 'a').close()
+    writeCache(cache)
+
+
+def readCache():
+    if not os.path.exists(cachePath):
+        createCache()
+    with open(cachePath, "r+") as file:
+        cache = json.load(file)
+    return cache
+
+
+def clearCache():
+    writeCache({})
+
+
+def writeCache(cache):
+    with open(cachePath, "w") as file:
+        json.dump(cache, file)
+
+
+def endpointIsCached(endpoint):
+    cache = readCache()
+    return endpoint in cache
+
+
+def cacheResponse(endpoint, response):
+    cache = readCache()
+    cache[endpoint] = response
+    writeCache(cache)
+
+
+def spotifyGetAPI(endpoint, cache=False):
+    if cache:
+        if endpointIsCached(endpoint):
+            return readCache()[endpoint]
+
     success = False
     while not success:
         config = readConfig()
@@ -48,6 +94,9 @@ def spotifyGetAPI(endpoint):
             time.sleep(retryAfter)
         else:
             getTokens()
+    if cache:
+        cacheResponse(endpoint, response.json())
+
     return response.json()
 
 

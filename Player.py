@@ -15,10 +15,12 @@ class Player():
         self.currentAlbum = None
         self.currentTime = 0
         self.currentTotalTime = 1
+        self.currentSongURI = None
+        self.currentContextURI = None
 
         # start thread that gets player context
         self.stopThread = False
-        threading.Thread(target=self.getPlayerContext).start()
+        threading.Thread(target=self.getPlayerContext, daemon=True).start()
 
     def getPlayerContext(self):
         while not self.stopThread:
@@ -32,6 +34,9 @@ class Player():
                 self.currentArtist = context['item']['artists'][0]['name']
                 self.currentAlbum = context['item']['album']['name']
                 self.currentTotalTime = context['item']['duration_ms']
+                self.currentSongURI = context['item']['uri']
+            if context['context']:
+                self.currentContextURI = context['context']['uri']
             time.sleep(0.1)
 
     def runOsascript(self, script):

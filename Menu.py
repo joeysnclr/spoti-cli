@@ -6,14 +6,15 @@ import utils
 
 
 class Menu(object):
-    def __init__(self, items, stdscreen, title, menuBar, shortcuts={}):
+    def __init__(self, items, stdscreen, title, menuBar):
         # init window stuff
         self.stdscreen = stdscreen
-        self.window = stdscreen.subwin(0, 0)
+        self.window = stdscreen.subwin(1, 1)
         self.window.keypad(1)
         self.panel = panel.new_panel(self.window)
         self.panel.hide()
         panel.update_panels()
+        curses.curs_set(0)
 
         # init some curses settings
         curses.halfdelay(8)  # set frame update in ms
@@ -26,7 +27,6 @@ class Menu(object):
         self.position = 0
         self.active = None
         self.items = items
-        self.shortcuts = shortcuts
         self.command = ""
         self.currPage = 1
         self.initPaging()
@@ -37,7 +37,7 @@ class Menu(object):
         """
         self.winHeight = self.stdscreen.getmaxyx()[0]
 
-        self.perPage = self.winHeight - 5
+        self.perPage = self.winHeight - self.menuBar.height - 2
         self.pages = math.ceil(len(self.items) / self.perPage)
         if self.currPage > self.pages:
             self.currPage = self.pages
@@ -69,61 +69,79 @@ class Menu(object):
         """
         self.active = i
 
+    def displayLine(self, y, x, content, color):
+        self.window.addstr(y, x, content, color)
+
     def display(self):
         """
         handle frame loop
         """
         self.panel.top()
         self.panel.show()
-        self.window.clear()
+        self.window.erase()
 
         while True:
-            self.window.clear()
-            self.window.refresh()
-            curses.doupdate()
-
-            self.initPaging()  # responsive paging
+            # gather data to be displayed before clearing display
 
             width = self.stdscreen.getmaxyx()[1]
-            menuBar = self.menuBar.generateOutput(
-                width, self.title, self.currPage, self.pages)
-            menuBarHeight = len(menuBar.split("\n"))
-
-            self.window.addstr(
-                1, 0, menuBar, curses.A_NORMAL)
+            self.initPaging()  # responsive paging
             first = self.perPage * (self.currPage - 1)
             last = self.perPage * (self.currPage)
 
+            shownItems = []
             for index, item in enumerate(self.items):
                 if index >= first and index < last:
-                    row = index - ((self.currPage - 1) * self.perPage)
-                else:
-                    continue
+                    formatted = item.formatMethod(item.data)
+                    if item.isActive:
+                        if item.isActive(item.data):
+                            self.setActive(index)
+                    shownItems.append((index, item, formatted))
 
+            # set window to override old contents with new contents on next refresh
+            self.window.erase()
+
+            menuBar = self.menuBar.generateOutput(
+                width, self.title, self.currPage, self.pages)
+            i = 0
+            for line in menuBar:
+                self.displayLine(i, 0, line, curses.A_NORMAL)
+                i += 1
+
+            for index, item, formatted in shownItems:
+                row = index - ((self.currPage - 1) * self.perPage)
                 if row == self.position:
                     mode = curses.A_REVERSE
                 else:
                     mode = curses.A_NORMAL
-
                 if self.active == index:
                     if self.position == row:
                         mode = curses.color_pair(2)
                     else:
                         mode = curses.color_pair(1)
 
-                msg = f"{item[0]}"
-                self.window.addstr(1 + menuBarHeight + row, 0, msg, mode)
+                self.displayLine(self.menuBar.height +
+                                 row, 0, formatted, mode)
 
+            # refreshes the screen
+            self.window.refresh()
+            curses.doupdate()
+
+            # handles shortcuts
             key = self.window.getch()
 
-            for sc in self.shortcuts:
-                if key == sc:
-                    self.shortcuts[sc]()
+            # handles menubar shortcuts
+            if key != -1:
+                for sc in self.menuBar.shortcuts:
+                    if chr(key) == sc:
+                        self.menuBar.shortcuts[sc]()
 
+            # handles menu shortcuts
             if key in [108, curses.KEY_ENTER, ord("\n")]:
                 index = self.position + \
                     (self.perPage * (self.currPage - 1))
-                self.items[self.position][1](index)
+                item = self.items[index]
+                item.onSelectMethod(item.data)
+
             elif key == curses.KEY_UP or key == 107:
                 self.navigate(-1)
             elif key == curses.KEY_DOWN or key == 106:
@@ -132,7 +150,7 @@ class Menu(object):
                 # exit submenu
                 break
             elif key == 113:
-                utils.killProgram(self.menuBar.player)
+                quit()
             elif key == 110:
                 if self.currPage < self.pages:
                     self.position = 0
@@ -146,7 +164,7 @@ class Menu(object):
             else:
                 self.command = key
 
-        self.window.clear()
+        self.window.erase()
         self.panel.hide()
         panel.update_panels()
         curses.doupdate()

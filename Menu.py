@@ -1,5 +1,6 @@
 import curses
 from curses import panel
+import time
 import math
 import MenuBar
 import utils
@@ -17,7 +18,8 @@ class Menu(object):
         curses.curs_set(0)
 
         # init some curses settings
-        curses.halfdelay(8)  # set frame update in ms
+        # curses.halfdelay(8)  # set frame update in ms
+        self.window.nodelay(1)
         curses.init_pair(1, curses.COLOR_GREEN, curses.COLOR_BLACK)
         curses.init_pair(2, curses.COLOR_MAGENTA, curses.COLOR_WHITE)
 
@@ -69,7 +71,10 @@ class Menu(object):
         """
         self.active = i
 
-    def displayLine(self, y, x, content, color):
+    def displayLine(self, y, x, content, color, width):
+        if len(content) < width:
+            while len(content) < width - 3:
+                content += " "
         self.window.addstr(y, x, content, color)
 
     def display(self):
@@ -87,6 +92,7 @@ class Menu(object):
             self.initPaging()  # responsive paging
             first = self.perPage * (self.currPage - 1)
             last = self.perPage * (self.currPage)
+            self.setActive(None)
 
             shownItems = []
             for index, item in enumerate(self.items):
@@ -104,23 +110,22 @@ class Menu(object):
                 width, self.title, self.currPage, self.pages)
             i = 0
             for line in menuBar:
-                self.displayLine(i, 0, line, curses.A_NORMAL)
+                self.displayLine(i, 0, line, curses.A_NORMAL, width)
                 i += 1
 
             for index, item, formatted in shownItems:
                 row = index - ((self.currPage - 1) * self.perPage)
-                if row == self.position:
-                    mode = curses.A_REVERSE
-                else:
-                    mode = curses.A_NORMAL
+                mode = curses.A_NORMAL
                 if self.active == index:
-                    if self.position == row:
+                    mode = curses.color_pair(1)
+                if row == self.position:
+                    if self.active == index:
                         mode = curses.color_pair(2)
                     else:
-                        mode = curses.color_pair(1)
+                        mode = curses.A_REVERSE
 
                 self.displayLine(self.menuBar.height +
-                                 row, 0, formatted, mode)
+                                 row, 0, formatted, mode, width)
 
             # refreshes the screen
             self.window.refresh()
@@ -163,6 +168,7 @@ class Menu(object):
                 self.position = self.getLastElem() - 1
             else:
                 self.command = key
+            time.sleep(1/60)
 
         self.window.erase()
         self.panel.hide()

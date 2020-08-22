@@ -22,14 +22,28 @@ def createConfig():
 def readConfig():
     if not os.path.exists(configPath):
         createConfig()
-    with open(configPath, "r+") as file:
-        config = json.load(file)
+    # continous retry to read file - sometimes throws error when accessing file from main thread and child thread
+    success = False
+    while not success:
+        try:
+            with open(configPath, "r+") as file:
+                config = json.load(file)
+                success = True
+        except:
+            continue
     return config
 
 
 def writeConfig(config):
-    with open(configPath, "w") as file:
-        json.dump(config, file)
+    # continous retry to write file - sometimes throws error when accessing file from main thread and child thread
+    success = False
+    while not success:
+        try:
+            with open(configPath, "w") as file:
+                json.dump(config, file)
+                success = True
+        except:
+            continue
 
 
 def msFormat(ms):
@@ -100,6 +114,22 @@ def spotifyGetAPI(endpoint, cache=False):
     return response.json()
 
 
+def spotifyPostAPI(url, payload):
+    success = False
+    while not success:
+        try:
+            response = requests.post(url, data=payload)
+        except:
+            time.sleep(1)
+            continue
+        if response.status_code == 200 and 'error' not in response.json():
+            success = True
+        elif response.status_code == 429:
+            retryAfter = int(response.headers['Retry-After'])
+            time.sleep(retryAfter)
+    return response.json()
+
+
 def getUserData():
     config = readConfig()
     user = spotifyGetAPI("/me/")
@@ -130,10 +160,9 @@ def getTokens():
             "client_secret": clientSecret
         }
 
-    postUrl = "https://accounts.spotify.com/api/token"
     # send request and save access token and refresh token (if there is one) in config
-    r = requests.post(postUrl, data=body)
-    response = r.json()
+    postUrl = "https://accounts.spotify.com/api/token"
+    response = spotifyPostAPI(postUrl, body)
     accessToken = response['access_token']
     config['access_token'] = accessToken
     if "refresh_token" in response:
@@ -144,7 +173,7 @@ def getTokens():
 
 def verify():
     # start server thread
-    serverThread = threading.Thread(target=server.run)
+    serverThread = threading.Thread(target=server.run, daemon=True)
     serverThread.start()
     # print instructions
     print("1. Go to the Spotify Dashboard, create an app")

@@ -8,12 +8,6 @@ from MenuBar import MenuBar
 from PlaylistMenu import PlaylistMenu, SongMenu
 
 
-# cli commands
-
-
-def help():
-    print("help")
-
 class MainMenu(object):
 
     def __init__(self, stdscreen):
@@ -25,11 +19,14 @@ class MainMenu(object):
 if __name__ == "__main__":
     # clears cache
     utils.clearCache()
-    # inits config
+    # gets config (creates if not created yet)
+    # utils.writeConfig({})
     config = utils.readConfig()
-    # spotify user long in if first time
+    # spotify user log in if first time
     if not config.get("hasVerified", False):
         utils.verify()
+    else:
+        utils.getTokens()
     # displays playlist menu
     curses.wrapper(MainMenu)
     # kills threads and main program

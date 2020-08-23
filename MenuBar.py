@@ -36,7 +36,7 @@ class MenuBar(object):
         bar += "]"
         return bar
 
-    def generateOutput(self, width, pageTitle, currPage, pages, searchQuery):
+    def generateOutput(self, width, menuStatus):
         width = width - 2
 
         songInfo = f"{self.player.currentSong} - {self.player.currentArtist}"
@@ -46,20 +46,18 @@ class MenuBar(object):
 
         playBar = self.generatePlayBar(width)
 
-        currentPageInfo = f"{pageTitle}    Page: {currPage}/{pages}    Search: {searchQuery}"
-
         shuffled = "On" if self.player.shuffle else "Off"
         repeatSymbols = {
             "off": "Off",
-            "context": "🔁️",
-            "track": "🔂"
+            "context": "On",
+            "track": "On"
         }
         repeat = self.player.repeat
         volume = self.player.volume
         playerSettings = f"Shuffle: {shuffled}   Repeat: {repeatSymbols[repeat]}    Volume: {volume}%"
 
         output = [songInfoCurrent, playBar,
-                  playerSettings, "", currentPageInfo]
+                  playerSettings, "", menuStatus]
         return output
 
 

@@ -66,10 +66,10 @@ based keybindings for navigating and controlling the application.
 - Spotify controls (minimum functionality)
 - menu navigation controls (minimum functionality)
 - snazzy lookin menu bar with some nice scroll effects on too long text
+- menu searching with /
 
 ##### In Progress Features
 
-- menu searching with /
 
 ##### Future Features
 

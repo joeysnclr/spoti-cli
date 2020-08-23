@@ -43,7 +43,7 @@ class Menu(object):
 
         self.perPage = self.winHeight - self.menuBar.height - 2
         self.pages = math.ceil(len(self.currItems) / self.perPage)
-        if self.currPage > self.pages:
+        if self.currPage > self.pages or self.currPage < 1:
             self.currPage = self.pages
             self.position = 0
 
@@ -78,6 +78,14 @@ class Menu(object):
             while len(content) < width - 3:
                 content += " "
         self.window.addstr(y, x, content, color)
+
+    def getMenuStatus(self):
+        if self.inputFocused:
+            return f"Search: {self.searchQuery}"
+        status = f"Mode: {self.shortcutMode.title()}    {self.title}    Page: {self.currPage}/{self.pages}"
+        if self.searchQuery:
+            status += f"    Search: {self.searchQuery}"
+        return status
 
     def display(self):
         """
@@ -114,10 +122,11 @@ class Menu(object):
                     shownItems.append((index, item, formatted))
 
             # set window to override old contents with new contents on next refresh
-            self.window.clear()
+            self.window.erase()
 
+            menuStatus = self.getMenuStatus()
             menuBar = self.menuBar.generateOutput(
-                width, self.title, self.currPage, self.pages, self.searchQuery)
+                width, menuStatus)
             i = 0
             for line in menuBar:
                 self.displayLine(i, 0, line, curses.A_NORMAL, width)
@@ -168,7 +177,9 @@ class Menu(object):
 
                     # handles menu shortcuts
                     if key in [108, curses.KEY_ENTER, ord("\n")]:
-                        item = self.currItems[self.position]
+                        itemIndex = self.items.index(
+                            shownItems[self.position][1])
+                        item = self.items[itemIndex]
                         item.onSelectMethod(item.data)
                     elif key == curses.KEY_UP or key == 107:
                         self.navigate(-1)

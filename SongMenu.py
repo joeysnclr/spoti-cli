@@ -58,5 +58,5 @@ class SongMenu(object):
         query = query.lower()
         if query in track['name'].lower():
             return True
-        if query in track['artists'][0]['name']:
+        if query in track['artists'][0]['name'].lower():
             return True

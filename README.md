@@ -35,27 +35,27 @@ based keybindings for navigating and controlling the application.
 
 ##### Navigation
 
-h: back to previous menu
-j: down 1 menu item
-k: up 1 menu item
-l: select menu item
-enter: select menu item
-n: next page
-N: previous page
-g: go to first item on page
-G: go to last item on page
+- h: back to previous menu
+- j: down 1 menu item
+- k: up 1 menu item
+- l: select menu item
+- enter: select menu item
+- n: next page
+- N: previous page
+- g: go to first item on page
+- G: go to last item on page
 
 ##### Music Player
 
-space: play/pause
-H: previous song
-L: next song
-s: toggle shuffle
-r: toggle repeat
+- space: play/pause
+- H: previous song
+- L: next song
+- s: toggle shuffle
+- r: toggle repeat
 
 ##### Development
 
-C: clear cache
+- C: clear cache
 
 ### Features
 

@@ -96,6 +96,9 @@ class Menu(object):
         self.window.erase()
 
         while True:
+            # if search query is empty when no input is focused go back to normal mode
+            if self.searchQuery == "" and not self.inputFocused:
+                self.shortcutMode = "normal"
             # filter list items if search mode
             self.currItems = []
             if self.shortcutMode == "search":

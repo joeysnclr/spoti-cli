@@ -8,8 +8,9 @@ class Player():
 
     def __init__(self):
         self.playing = False
-        self.shuffle = None
-        self.repeat = None
+        self.shuffle = False
+        self.repeat = "off"
+        self.volume = 0
         self.currentSong = None
         self.currentArtist = None
         self.currentAlbum = None
@@ -22,22 +23,30 @@ class Player():
         self.stopThread = False
         threading.Thread(target=self.getPlayerContext, daemon=True).start()
 
+        # set spotify volume to 100 on startup
+        self.changeVolume(100)
+
     def getPlayerContext(self):
         while not self.stopThread:
-            context = utils.spotifyGetAPI("/me/player")
-            self.playing = context['is_playing']
-            self.shuffle = context['shuffle_state']
-            self.repeat = context['repeat_state']
-            self.currentTime = context['progress_ms']
-            if context['item']:
-                self.currentSong = context['item']['name']
-                self.currentArtist = context['item']['artists'][0]['name']
-                self.currentAlbum = context['item']['album']['name']
-                self.currentTotalTime = context['item']['duration_ms']
-                self.currentSongURI = context['item']['uri']
-            if context['context']:
-                self.currentContextURI = context['context']['uri']
-            time.sleep(0.1)
+            try:
+                context = utils.spotifyGetAPI("/me/player")
+                self.playing = context['is_playing']
+                self.shuffle = context['shuffle_state']
+                self.repeat = context['repeat_state']
+                self.volume = context['device']['volume_percent']
+                self.currentTime = context['progress_ms']
+                if context['item']:
+                    self.currentSong = context['item']['name']
+                    self.currentArtist = context['item']['artists'][0]['name']
+                    self.currentAlbum = context['item']['album']['name']
+                    self.currentTotalTime = context['item']['duration_ms']
+                    self.currentSongURI = context['item']['uri']
+                if context['context']:
+                    self.currentContextURI = context['context']['uri']
+                time.sleep(0.1)
+            except:
+                time.sleep(1)
+                continue
 
     def runOsascript(self, script):
         cmd = f"osascript -e '{script}'"
@@ -86,6 +95,16 @@ class Player():
     def playSong(self, songURI):
         script = f'tell application "Spotify" to play track "{songURI}"'
         self.runOsascript(script)
+
+    def changeVolume(self, amount):
+        script = f'tell application "Spotify" to set sound volume to sound volume + {amount}'
+        self.runOsascript(script)
+
+    def increaseVolume(self):
+        self.changeVolume(10)
+
+    def decreaseVolume(self):
+        self.changeVolume(-10)
 
 
 # song = "spotify:track:6glsMWIMIxQ4BedzLqGVi4"

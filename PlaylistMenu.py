@@ -17,17 +17,17 @@ class PlaylistMenu(object):
         menuItems = []
         for playlist in self.playlists:
             playlistItem = MenuItem(
-                playlist, self.showPlaylist, self.formatPlaylist)
+                playlist, self.showPlaylist, self.formatPlaylist, self.playlistMatchesSearch)
             menuItems.append(playlistItem)
         self.menu = Menu(menuItems, self.stdscreen, self.title, self.menuBar)
         self.menu.display()
 
     def showPlaylist(self, playlist):
         songs = self.getSongs(playlist)
-        playlistName = playlist['name']
         playlistURI = playlist['uri']
+        songMenuTitle = f"Playlist: {playlist['name']}    Songs: {playlist['tracks']['total']}"
         songMenu = SongMenu(self.stdscreen, self.menuBar,
-                            songs, playlistName, playlistURI)
+                            songs, songMenuTitle, playlistURI)
         songMenu.activate()
 
     def formatPlaylist(self, playlist):
@@ -43,6 +43,9 @@ class PlaylistMenu(object):
         formatted = "{:{}.{}}{:{}.{}}{:>{}}".format(
             playlistName, column1, column1 - 2, playlistSongs, column2, column2 - 2, playlistDescription, column3)
         return formatted
+
+    def playlistMatchesSearch(self, playlist, query):
+        return query.lower() in playlist.data['name'].lower()
 
     def getSongs(self, playlist):
         playlistId = playlist['id']

@@ -17,7 +17,7 @@ class SongMenu(object):
         menuItems = []
         for song in self.songs:
             songItem = MenuItem(song, self.playSong,
-                                self.formatSong, self.isActive)
+                                self.formatSong, self.songMatchesSearch, self.isActive)
             menuItems.append(songItem)
         self.menu = Menu(menuItems, self.stdscreen, self.title, self.menuBar)
         self.menu.display()
@@ -52,3 +52,11 @@ class SongMenu(object):
         isCurrentSong = songURI == player.currentSongURI
         isCurrentContext = self.contextURI == player.currentContextURI
         return isCurrentSong and isCurrentContext
+
+    def songMatchesSearch(self, song, query):
+        track = song.data['track']
+        query = query.lower()
+        if query in track['name'].lower():
+            return True
+        if query in track['artists'][0]['name']:
+            return True

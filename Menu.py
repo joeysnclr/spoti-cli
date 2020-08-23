@@ -29,9 +29,11 @@ class Menu(object):
         self.position = 0
         self.active = None
         self.items = items
-        self.command = ""
+        self.currItems = self.items
+        self.shortcutMode = "normal"
+        self.inputFocused = False
+        self.searchQuery = ""
         self.currPage = 1
-        self.initPaging()
 
     def initPaging(self):
         """
@@ -40,7 +42,7 @@ class Menu(object):
         self.winHeight = self.stdscreen.getmaxyx()[0]
 
         self.perPage = self.winHeight - self.menuBar.height - 2
-        self.pages = math.ceil(len(self.items) / self.perPage)
+        self.pages = math.ceil(len(self.currItems) / self.perPage)
         if self.currPage > self.pages:
             self.currPage = self.pages
             self.position = 0
@@ -51,8 +53,8 @@ class Menu(object):
         """
         first = self.perPage * (self.currPage - 1)
         last = self.perPage * (self.currPage)
-        if last > len(self.items):
-            last = len(self.items)
+        if last > len(self.currItems):
+            last = len(self.currItems)
         lastElem = last - first
         return lastElem
 
@@ -86,8 +88,16 @@ class Menu(object):
         self.window.erase()
 
         while True:
-            # gather data to be displayed before clearing display
+            # filter list items if search mode
+            self.currItems = []
+            if self.shortcutMode == "search":
+                for item in self.items:
+                    if item.matchesSearch(item, self.searchQuery):
+                        self.currItems.append(item)
+            else:
+                self.currItems = self.items
 
+            # gather data to be displayed before clearing display
             width = self.stdscreen.getmaxyx()[1]
             self.initPaging()  # responsive paging
             first = self.perPage * (self.currPage - 1)
@@ -95,7 +105,7 @@ class Menu(object):
             self.setActive(None)
 
             shownItems = []
-            for index, item in enumerate(self.items):
+            for index, item in enumerate(self.currItems):
                 if index >= first and index < last:
                     formatted = item.formatMethod(item.data)
                     if item.isActive:
@@ -104,10 +114,10 @@ class Menu(object):
                     shownItems.append((index, item, formatted))
 
             # set window to override old contents with new contents on next refresh
-            self.window.erase()
+            self.window.clear()
 
             menuBar = self.menuBar.generateOutput(
-                width, self.title, self.currPage, self.pages)
+                width, self.title, self.currPage, self.pages, self.searchQuery)
             i = 0
             for line in menuBar:
                 self.displayLine(i, 0, line, curses.A_NORMAL, width)
@@ -134,40 +144,57 @@ class Menu(object):
             # handles shortcuts
             key = self.window.getch()
 
-            # handles menubar shortcuts
             if key != -1:
-                for sc in self.menuBar.shortcuts:
-                    if chr(key) == sc:
-                        self.menuBar.shortcuts[sc]()
+                # handling input when input focused
+                if self.inputFocused:
+                    if key == curses.KEY_BACKSPACE:
+                        if len(self.searchQuery) > 0:
+                            self.searchQuery = self.searchQuery[:-1]
+                    elif key == 27:  # ESC
+                        self.searchQuery = ""
+                        self.inputFocused = False
+                    elif key in [curses.KEY_ENTER, ord("\n")]:  # ENTER
+                        self.inputFocused = False
+                    else:
+                        self.searchQuery += chr(key)
+                else:
+                    # handles menubar/menuitem shortcuts
+                    for sc in self.menuBar.shortcuts:
+                        if chr(key) == sc:
+                            self.menuBar.shortcuts[sc]()
+                    menuItemShortcuts = []
+                    for i in menuItemShortcuts:
+                        pass
 
-            # handles menu shortcuts
-            if key in [108, curses.KEY_ENTER, ord("\n")]:
-                index = self.position + \
-                    (self.perPage * (self.currPage - 1))
-                item = self.items[index]
-                item.onSelectMethod(item.data)
-
-            elif key == curses.KEY_UP or key == 107:
-                self.navigate(-1)
-            elif key == curses.KEY_DOWN or key == 106:
-                self.navigate(1)
-            elif key == 104:
-                # exit submenu
-                break
-            elif key == 113:
-                quit()
-            elif key == 110:
-                if self.currPage < self.pages:
-                    self.position = 0
-                    self.currPage += 1
-            elif key == 78:
-                if self.currPage > 1:
-                    self.position = 0
-                    self.currPage -= 1
-            elif key == 71:
-                self.position = self.getLastElem() - 1
-            else:
-                self.command = key
+                    # handles menu shortcuts
+                    if key in [108, curses.KEY_ENTER, ord("\n")]:
+                        item = self.currItems[self.position]
+                        item.onSelectMethod(item.data)
+                    elif key == curses.KEY_UP or key == 107:
+                        self.navigate(-1)
+                    elif key == curses.KEY_DOWN or key == 106:
+                        self.navigate(1)
+                    elif key == 104:
+                        # exit submenu
+                        break
+                    elif key == 113:
+                        quit()
+                    elif key == 110:
+                        if self.currPage < self.pages:
+                            self.position = 0
+                            self.currPage += 1
+                    elif key == 78:
+                        if self.currPage > 1:
+                            self.position = 0
+                            self.currPage -= 1
+                    elif key == 71:
+                        self.position = self.getLastElem() - 1
+                    elif chr(key) == "/":
+                        self.shortcutMode = "search"
+                        self.inputFocused = True
+                    elif self.shortcutMode == "search" and key == 27:  # leave search mode
+                        self.searchQuery = ""
+                        self.shortcutMode = "normal"
             time.sleep(1/60)
 
         self.window.erase()

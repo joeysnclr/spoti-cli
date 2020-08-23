@@ -12,7 +12,6 @@ class MainMenu(object):
 
     def __init__(self, stdscreen):
         self.stdscreen = stdscreen
-        self.stdscreen.addstr(0,0,"spotify-terminal",curses.A_NORMAL)
         self.menuBar = MenuBar()
         PlaylistMenu(self.stdscreen, self.menuBar).activate()
 

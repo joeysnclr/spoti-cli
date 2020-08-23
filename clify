@@ -5,14 +5,15 @@ import curses
 import utils
 from Menu import Menu
 from MenuBar import MenuBar
-from PlaylistMenu import PlaylistMenu, SongMenu
+from PlaylistMenu import PlaylistMenu
+from LyricsMenu import LyricsMenu
 
 
 class MainMenu(object):
 
     def __init__(self, stdscreen):
         self.stdscreen = stdscreen
-        self.menuBar = MenuBar()
+        self.menuBar = MenuBar(self.stdscreen)
         PlaylistMenu(self.stdscreen, self.menuBar).activate()
 
 if __name__ == "__main__":

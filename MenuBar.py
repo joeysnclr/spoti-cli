@@ -1,11 +1,13 @@
 import Player
 import time
 import utils
+from LyricsMenu import LyricsMenu
 
 
 class MenuBar(object):
 
-    def __init__(self):
+    def __init__(self, stdscreen):
+        self.stdscreen = stdscreen
         self.player = Player.Player()
         self.height = 6
         self.shortcuts = {
@@ -15,11 +17,17 @@ class MenuBar(object):
             "L": self.player.nextSong,
             "?": self.player.togglePlay,
             "s": self.player.toggleShuffle,
-            "r": self.player.toggleRepeat
+            "r": self.player.toggleRepeat,
+            "i": self.showLyrics
             # "=": self.player.increaseVolume,
             # "-": self.player.decreaseVolume
         }
         self.songInfoScroll = ScrollText("current song", 1)
+
+    def showLyrics(self):
+        lyricsMenu = LyricsMenu(
+            self.stdscreen, self, self.player.currentSong, self.player.currentArtist)
+        lyricsMenu.activate()
 
     def generatePlayBar(self, width):
         timeCurr = utils.msFormat(self.player.currentTime)

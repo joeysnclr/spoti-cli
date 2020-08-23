@@ -2,7 +2,6 @@ import curses
 from curses import panel
 import time
 import math
-import MenuBar
 import utils
 
 
@@ -44,7 +43,7 @@ class Menu(object):
         self.perPage = self.winHeight - self.menuBar.height - 2
         self.pages = math.ceil(len(self.currItems) / self.perPage)
         if self.currPage > self.pages or self.currPage < 1:
-            self.currPage = self.pages
+            self.currPage = 1
             self.position = 0
 
     def getLastElem(self):
@@ -82,7 +81,7 @@ class Menu(object):
     def getMenuStatus(self):
         if self.inputFocused:
             return f"Search: {self.searchQuery}"
-        status = f"Mode: {self.shortcutMode.title()}    {self.title}    Page: {self.currPage}/{self.pages}"
+        status = f"Mode: {self.shortcutMode.title()}    {self.title}    Page: {self.currPage}/{self.pages}    Items: {len(self.currItems)}"
         if self.searchQuery:
             status += f"    Search: {self.searchQuery}"
         return status

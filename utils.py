@@ -130,6 +130,26 @@ def spotifyPostAPI(url, payload):
     return response.json()
 
 
+def spotifyPutAPI(endpoint):
+    success = False
+    while not success:
+        config = readConfig()
+        url = "https://api.spotify.com/v1" + endpoint
+        headers = {"Authorization": "Bearer " + config["access_token"]}
+        try:
+            response = requests.put(url, headers=headers)
+        except Exception as e:
+            raise Exception(e)
+            print(e)
+            time.sleep(1)
+            continue
+        if response.status_code == 204:
+            success = True
+        elif response.status_code == 429:
+            retryAfter = int(response.headers['Retry-After'])
+            time.sleep(retryAfter)
+
+
 def getUserData():
     config = readConfig()
     user = spotifyGetAPI("/me/")

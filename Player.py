@@ -173,10 +173,10 @@ class Player():
         self.changeVolume(-10)
 
 
-song = "spotify:track:6glsMWIMIxQ4BedzLqGVi4"
-context = "spotify:playlist:6sFCSiF2JWWCGnJ76yw93o"
+# song = "spotify:track:6glsMWIMIxQ4BedzLqGVi4"
+# context = "spotify:playlist:6sFCSiF2JWWCGnJ76yw93o"
 
 
-p = Player()
-p.playSongInContext(song, context)
+# p = Player()
+# p.playSongInContext(song, context)
 # p.playSong(song)

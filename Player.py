@@ -63,7 +63,6 @@ class Player():
                 continue
 
     def runOsascript(self, script):
-        print(script)
         cmd = f"osascript -e '{script}'"
         os.system(cmd)
 

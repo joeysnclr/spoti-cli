@@ -201,6 +201,8 @@ class Menu(object):
                         if self.currPage > 1:
                             self.position = 0
                             self.currPage -= 1
+                    elif key == 103:
+                        self.position = 0
                     elif key == 71:
                         self.position = self.getLastElem() - 1
                     elif chr(key) == "/":

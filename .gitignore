@@ -1,4 +1,5 @@
 .vim/
 __pycache__
 clify.json
-env/
+.direnv
+.envrc

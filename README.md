@@ -10,26 +10,40 @@ based keybindings for navigating and controlling the application.
 
 ### Requirements
 
-- python3, pip to install uninstalled packages
+- python3 & pip
 - Spotify Premium
 - Spotify Developer Application
 
-### Installation
+### Installation From Source
 
-`git clone repo`
+clone the repository to any directory ($DIR)
 
-`add directory to path`
-
-`make clify file executable` (clify file will have its name changed)
-
-`run clify`
+`git clone https://github.com/joeysnclr/terminal-spotify.git $DIR`
 
 
-### Uninstall
+add directory to path (in .bashrc or .zshrc)
 
-`rm source code`
+`export PATH=$PATH:$DIR`
+
+
+make `clify` file executable
+
+`chmod +x $DIR/clify`
+
+
+cd into $DIR and install requirements
+
+`cd $DIR`
+
+`pip3 install -r requirements.txt`
+
+
+
+### Uninstall Source and Config/Cache Files
+
+`rm -rf $DIR`
 `rm ~./terminal-spotify.json`
-`rm ~./terminal-spotify-cache.json`
+`rm ~./terminal-spotify-cache.json` (this should be changed)
 
 ### Shortcuts
 
@@ -44,6 +58,8 @@ based keybindings for navigating and controlling the application.
 - N: previous page
 - g: go to first item on page
 - G: go to last item on page
+- /: enter search input (esc to leave search mode)
+
 
 ##### Music Player
 
@@ -53,9 +69,16 @@ based keybindings for navigating and controlling the application.
 - s: toggle shuffle
 - r: toggle repeat
 
+
+##### Lyrics
+
+- i: fetch lyrics from Genius
+
+
 ##### Development
 
 - C: clear cache
+
 
 ### Features
 
@@ -66,18 +89,20 @@ based keybindings for navigating and controlling the application.
 - Spotify controls (minimum functionality)
 - menu navigation controls (minimum functionality)
 - snazzy lookin menu bar with some nice scroll effects on too long text
-- menu searching with /
+- menu searching with / (esc to exit search mode)
+- Linux compatibility
+- show song lyrics (Genius API)
 
 ##### In Progress Features
 
+- None currently
 
 ##### Future Features
 
-- Linux compatibility
+- add some color to menubar
 - Spotify search
 - artist menu
 - album menu
-- show song lyrics (Genius API)
 - audio visualizer
 
 

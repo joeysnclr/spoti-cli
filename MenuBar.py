@@ -30,13 +30,10 @@ class MenuBar(object):
         lyricsMenu.activate()
 
     def generatePlayBar(self, width):
-        timeCurr = utils.msFormat(self.player.currentTime)
-        timeTotal = utils.msFormat(self.player.currentTotalTime)
-        playingText = u"\u25A0" if self.player.playing else u"\u25B6"
-        bar = f"{playingText} {timeCurr}/{timeTotal} ["
-        barWidth = width - len(bar) - 2
+        barWidth = width - 2
         barPercent = self.player.currentTime / self.player.currentTotalTime
         barChars = int(barPercent * barWidth)
+        bar = "["
         for i in range(barChars):
             bar += u'\u2588'
         for i in range(barWidth - barChars):
@@ -44,7 +41,18 @@ class MenuBar(object):
         bar += "]"
         return bar
 
-    def generateOutput(self, width, menuStatus):
+    def generatePlayingSymbolAndColor(self):
+        playingInfo = [u"\u25A0", 4] if not self.player.playing else [
+            u"\u25B6", 1]
+        return playingInfo
+
+    def generatePlayingStatus(self):
+        timeCurr = utils.msFormat(self.player.currentTime)
+        timeTotal = utils.msFormat(self.player.currentTotalTime)
+        status = f" {timeCurr}/{timeTotal} "
+        return status
+
+    def generateOutput(self, width, curses):
         width = width - 2
 
         songInfo = f"{self.player.currentSong} - {self.player.currentArtist}"
@@ -52,7 +60,9 @@ class MenuBar(object):
             self.songInfoScroll = ScrollText(songInfo, width)
         songInfoCurrent = self.songInfoScroll.scroll(2, width)
 
-        playBar = self.generatePlayBar(width)
+        playingSymbol = self.generatePlayingSymbolAndColor()
+        playingStatus = self.generatePlayingStatus()
+        playBar = self.generatePlayBar(width - len(playingStatus))
 
         shuffled = "On" if self.player.shuffle else "Off"
         repeatSymbols = {
@@ -64,8 +74,17 @@ class MenuBar(object):
         volume = self.player.volume
         playerSettings = f"Shuffle: {shuffled}   Repeat: {repeatSymbols[repeat]}    Volume: {volume}%"
 
-        output = [songInfoCurrent, playBar,
-                  playerSettings, "", menuStatus]
+        output = [
+            [[songInfoCurrent, 0, curses.color_pair(3)]],
+            [
+                [playingSymbol[0], 0, curses.color_pair(playingSymbol[1])],
+                [playingStatus, 1, curses.A_NORMAL],
+                [playBar, len(playingStatus), curses.color_pair(1)]
+            ],
+            [
+                [playerSettings, 0, curses.A_NORMAL]
+            ]
+        ]
         return output
 
 
@@ -97,8 +116,8 @@ class ScrollText(object):
         else:
             rolloverChars = 0
 
-        self.displayed = textWithSpacing[start:end]
-        self.displayed += textWithSpacing[:rolloverChars]
+        self.displayed = textWithSpacing[start: end]
+        self.displayed += textWithSpacing[: rolloverChars]
         if self.currPosition >= len(textWithSpacing):
             self.currPosition = 0
         else:

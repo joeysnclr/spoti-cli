@@ -79,6 +79,9 @@ cd into $DIR and install requirements
 
 - C: clear cache
 
+### Known Bugs
+
+- delay when exiting search mode
 
 ### Features
 
@@ -92,6 +95,7 @@ cd into $DIR and install requirements
 - menu searching with / (esc to exit search mode)
 - Linux compatibility
 - show song lyrics (Genius API)
+- add some color to menubar
 
 ##### In Progress Features
 
@@ -99,7 +103,6 @@ cd into $DIR and install requirements
 
 ##### Future Features
 
-- add some color to menubar
 - Spotify search
 - artist menu
 - album menu

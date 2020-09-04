@@ -21,6 +21,8 @@ class Menu(object):
         self.window.nodelay(1)
         curses.init_pair(1, curses.COLOR_GREEN, curses.COLOR_BLACK)
         curses.init_pair(2, curses.COLOR_MAGENTA, curses.COLOR_WHITE)
+        curses.init_pair(3, curses.COLOR_BLUE, curses.COLOR_BLACK)
+        curses.init_pair(4, curses.COLOR_RED, curses.COLOR_BLACK)
 
         # menu data
         self.title = title
@@ -40,7 +42,7 @@ class Menu(object):
         """
         self.winHeight = self.stdscreen.getmaxyx()[0]
 
-        self.perPage = self.winHeight - self.menuBar.height - 2
+        self.perPage = self.winHeight - self.menuBar.height - 3
         self.pages = math.ceil(len(self.currItems) / self.perPage)
         if self.currPage > self.pages or self.currPage < 1:
             self.currPage = 1
@@ -72,7 +74,7 @@ class Menu(object):
         """
         self.active = i
 
-    def displayLine(self, y, x, content, color, width):
+    def displayText(self, y, x, content, color, width):
         if len(content) < width:
             while len(content) < width - 3:
                 content += " "
@@ -81,7 +83,7 @@ class Menu(object):
     def getMenuStatus(self):
         if self.inputFocused:
             return f"Search: {self.searchQuery}"
-        status = f"Mode: {self.shortcutMode.title()}    {self.title}    Page: {self.currPage}/{self.pages}    Items: {len(self.currItems)}"
+        status = f"{self.title}    Mode: {self.shortcutMode.title()}    {self.currPage}/{self.pages}"
         if self.searchQuery:
             status += f"    Search: {self.searchQuery}"
         return status
@@ -126,13 +128,11 @@ class Menu(object):
             # set window to override old contents with new contents on next refresh
             self.window.erase()
 
+            # render each line
+            line = 0
             menuStatus = self.getMenuStatus()
-            menuBar = self.menuBar.generateOutput(
-                width, menuStatus)
-            i = 0
-            for line in menuBar:
-                self.displayLine(i, 0, line, curses.A_NORMAL, width)
-                i += 1
+            self.displayText(line, 0, menuStatus, curses.A_NORMAL, width)
+            line += 2
 
             for index, item, formatted in shownItems:
                 row = index - ((self.currPage - 1) * self.perPage)
@@ -145,8 +145,16 @@ class Menu(object):
                     else:
                         mode = curses.A_REVERSE
 
-                self.displayLine(self.menuBar.height +
-                                 row, 0, formatted, mode, width)
+                self.displayText(line, 0, formatted, mode, width)
+                line += 1
+            line = self.perPage + 3
+
+            menuBar = self.menuBar.generateOutput(width, curses)
+            for lineData in menuBar:
+                for part in lineData:
+                    self.displayText(line, part[1],
+                                     part[0], part[2], width)
+                line += 1
 
             # refreshes the screen
             self.window.refresh()

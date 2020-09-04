@@ -25,7 +25,7 @@ class PlaylistMenu(object):
     def showPlaylist(self, playlist):
         songs = self.getSongs(playlist)
         playlistURI = playlist['uri']
-        songMenuTitle = f"Playlist: {playlist['name']}"
+        songMenuTitle = playlist['name']
         songMenu = SongMenu(self.stdscreen, self.menuBar,
                             songs, songMenuTitle, playlistURI)
         songMenu.activate()

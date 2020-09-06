@@ -115,6 +115,8 @@ cd into $DIR and install requirements
 - artist menu
 - album menu
 - audio visualizer
+- add songs to queue
+- show log of last action for amount of time
 
 
 ### Contributing

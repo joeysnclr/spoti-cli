@@ -19,12 +19,16 @@ def getLyrics(song, artist):
             songInfo = hit
             break
     if not songInfo:
-        return ['Could not find song']
+        songInfo = json['response']['hits'][0]
+    songName = songInfo['result']['title']
+    songTitle = songInfo['result']['primary_artist']['name']
     songUrl = songInfo['result']['url']
     page = requests.get(songUrl)
     html = BeautifulSoup(page.text, 'html.parser')
     lyrics = html.find('div', class_='lyrics').get_text()
-    return lyrics.split('\n')
+    lyricsByLine = lyrics.split('\n')
+    lyricsByLine.insert(0, f'{songName} - {songTitle}')
+    return lyricsByLine
 
 
 # print(getLyrics("Affirmative Action", "Nas"))

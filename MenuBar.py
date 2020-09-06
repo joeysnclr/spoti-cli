@@ -79,7 +79,8 @@ class MenuBar(object):
             [
                 [playingSymbol[0], 0, curses.color_pair(playingSymbol[1])],
                 [playingStatus, 1, curses.A_NORMAL],
-                [playBar, len(playingStatus), curses.color_pair(1)]
+                [playBar, len(playingStatus) +
+                 len(playingSymbol[0]), curses.color_pair(1)]
             ],
             [
                 [playerSettings, 0, curses.A_NORMAL]

@@ -1,7 +1,7 @@
 import os
 import platform
 import time
-import utils
+import Utils.utils as utils
 import threading
 if platform.system() == "Linux":
     import dbus

@@ -2,7 +2,7 @@ import curses
 from curses import panel
 import time
 import math
-import utils
+import Utils.utils as utils
 
 
 class Menu(object):

@@ -1,6 +1,6 @@
-import utils
-from Menu import Menu
-from MenuItem import MenuItem
+import Utils.utils as utils
+from MenuComponents.Menu import Menu
+from MenuComponents.MenuItem import MenuItem
 
 
 class SongMenu(object):

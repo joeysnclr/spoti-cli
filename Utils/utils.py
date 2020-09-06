@@ -1,7 +1,7 @@
 import webbrowser
 import json
 import threading
-import server
+import Utils.server as server
 import time
 import requests
 import os

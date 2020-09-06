@@ -3,7 +3,7 @@ import json
 import os
 import logging
 import requests
-import utils
+import Utils.utils as utils
 
 # create flask app
 app = Flask(__name__)

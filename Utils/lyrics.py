@@ -1,5 +1,5 @@
 import requests
-import utils
+import Utils.utils as utils
 from bs4 import BeautifulSoup
 
 

@@ -1,7 +1,7 @@
-import utils
-from MenuItem import MenuItem
-from Menu import Menu
-import lyrics
+import Utils.utils as utils
+from MenuComponents.MenuItem import MenuItem
+from MenuComponents.Menu import Menu
+import Utils.lyrics as lyrics
 
 
 class LyricsMenu(object):

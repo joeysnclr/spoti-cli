@@ -83,7 +83,15 @@ cd into $DIR and install requirements
 
 - delay when exiting search mode
 
-### Features
+### Features/To Do
+
+##### To Do List
+
+- move cache file
+- document architecture
+- change name
+- add package to package repos (homebrew, apt, etc...)
+
 
 ##### Completed features
 
@@ -112,3 +120,5 @@ cd into $DIR and install requirements
 ### Contributing
 
 Feel free to contribute any ideas or code to this project. Anything is welcomed!
+
+If you come across any issues please report them in the issues tab. Thank you!

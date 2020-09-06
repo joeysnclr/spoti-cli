@@ -2,11 +2,9 @@
 import os
 import sys
 import curses
-import utils
-from Menu import Menu
-from MenuBar import MenuBar
-from PlaylistMenu import PlaylistMenu
-from LyricsMenu import LyricsMenu
+import Utils.utils as utils
+from MenuComponents.MenuBar import MenuBar
+from Menus.PlaylistMenu import PlaylistMenu
 
 
 class MainMenu(object):

@@ -1,7 +1,7 @@
-import Player
+import MenuComponents.Player as Player
 import time
-import utils
-from LyricsMenu import LyricsMenu
+import Utils.utils as utils
+from Menus.LyricsMenu import LyricsMenu
 
 
 class MenuBar(object):

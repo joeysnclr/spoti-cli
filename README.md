@@ -1,8 +1,9 @@
 # Terminal Spotify
 
-### Intro
 
 ![Terminal Spotify Preview](https://raw.githubusercontent.com/joeysnclr/terminal-spotify/master/screenshot.png)
+
+### Intro
 
 Terminal Spotify (subject to name change) is a TUI (terminal user interface)
 client for Spotify. Designed with efficiency in mind, Terminal Spotify uses Vim
@@ -42,8 +43,11 @@ cd into $DIR and install requirements
 ### Uninstall Source and Config/Cache Files
 
 `rm -rf $DIR`
+
 `rm ~./terminal-spotify.json`
+
 `rm ~./terminal-spotify-cache.json` (this should be changed)
+
 
 ### Shortcuts
 
@@ -117,6 +121,7 @@ cd into $DIR and install requirements
 - audio visualizer
 - add songs to queue
 - show log of last action for amount of time
+- help menu
 
 
 ### Contributing

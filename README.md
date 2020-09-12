@@ -2,7 +2,7 @@
 
 ### Intro
 
-![Terminal Spotify Preview](https://raw.githubusercontent.com/joeysnclr/terminal-spotify/master/playlists_screenshot.png)
+![Terminal Spotify Preview](https://raw.githubusercontent.com/joeysnclr/terminal-spotify/master/screenshot.png)
 
 Terminal Spotify (subject to name change) is a TUI (terminal user interface)
 client for Spotify. Designed with efficiency in mind, Terminal Spotify uses Vim

@@ -1,0 +1,67 @@
+from blessed import Terminal
+from Component import Component
+
+
+class ViewManager(object):
+
+    def __init__(self, term):
+        self.term = term
+        self.running = True
+        self.title = None
+        self.mainView = None
+        self.player = None
+        self.globalShortcuts = {
+            "q": self.quit
+        }
+
+    def start(self):
+        with self.term.cbreak(), self.term.hidden_cursor():
+            # clear the screen
+            print(self.term.home + self.term.clear)
+            # render loop
+            while self.running:
+                # wait for key
+                key = self.term.inkey(timeout=.03333)
+                # reset components in case mainView has changed
+                self.components = [self.title, self.mainView, self.player]
+                # shortcuts
+                self.shortcuts(key)
+                # rendering
+                self.render()
+            print(self.term.home + self.term.clear)
+
+    def shortcuts(self, key):
+        if key:
+            # run global shortcuts
+            if key in self.globalShortcuts:
+                self.globalShortcuts[key]()
+            # run component specific shortcuts
+            for component in self.components:
+                component.handleShortcut(key)
+
+    def render(self):
+        # calculate # of lines for each component
+        height = self.term.height - 1
+        titleHeight = 2
+        playerHeight = 5
+        mainViewHeight = height - titleHeight - playerHeight
+        heights = [titleHeight, mainViewHeight, playerHeight]
+        # gather output for each component
+        componentOutputs = []
+        for height, component in zip(heights, self.components):
+            componentOutputs.append(component.output(height))
+        # clear screen and output each component
+        print(self.term.home + self.term.clear)
+        for output in componentOutputs:
+            for line in output:
+                print(line)
+
+    def setMainView(self, component):
+        self.mainView = component
+
+    def quit(self):
+        self.running = False
+        quit()
+
+
+viewManager = ViewManager(Terminal())

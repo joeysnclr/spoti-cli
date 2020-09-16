@@ -11,6 +11,7 @@ class ViewManager(object):
         self.title = None
         self.mainView = None
         self.player = None
+        self.logOutput = None
         self.previousMainViews = []
         self.globalShortcuts = {
             "q": self.quit,
@@ -27,7 +28,7 @@ class ViewManager(object):
                 # wait for key
                 key = self.term.inkey(timeout=.03333)
                 # reset components in case mainView has changed
-                self.components = [self.title, self.mainView, self.player]
+                self.components = [self.title, self.mainView, self.player, self.logOutput]
                 # shortcuts
                 self.shortcuts(key)
                 # rendering
@@ -50,8 +51,9 @@ class ViewManager(object):
         height = self.term.height - 1
         titleHeight = 2
         playerHeight = 5
-        mainViewHeight = height - titleHeight - playerHeight
-        heights = [titleHeight, mainViewHeight, playerHeight]
+        logOutputHeight = 1
+        mainViewHeight = height - titleHeight - playerHeight - logOutputHeight
+        heights = [titleHeight, mainViewHeight, playerHeight, logOutputHeight]
         # gather output for each component
         componentOutputs = []
         for height, component in zip(heights, self.components):

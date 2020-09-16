@@ -1,9 +1,9 @@
 from ViewManager import viewManager
 from Player import player
+from Log import log
 from Component import Component
 from TitleBar import TitleBar
 from PlaylistMenu import PlaylistMenu
-from SongItem import SongItem
 from Utils import utils
 
 def startApp():
@@ -11,6 +11,7 @@ def startApp():
     viewManager.title = TitleBar("title")
     viewManager.setMainView(PlaylistMenu())
     viewManager.player = player
+    viewManager.logOutput = log
     viewManager.start()
 
 

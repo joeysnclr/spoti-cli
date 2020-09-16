@@ -5,6 +5,7 @@ import Utils.utils as utils
 import threading
 from Component import Component
 from ViewManager import viewManager
+from Log import log
 
 term = viewManager.term
 
@@ -142,6 +143,8 @@ class Player(Component):
         else:
             script = 'tell application "Spotify" to playpause'
             self.runOsascript(script)
+        log.log("Toggled Play")
+
 
     def toggleShuffle(self):
         if self.isLinux:
@@ -161,6 +164,7 @@ class Player(Component):
                 end tell
             '''
             self.runOsascript(script)
+        log.log("Toggled Shuffle")
 
     def toggleRepeat(self):
         if self.isLinux:
@@ -180,6 +184,7 @@ class Player(Component):
                 end tell
             '''
             self.runOsascript(script)
+        log.log("Toggled Repeat")
 
     def nextSong(self):
         if self.isLinux:
@@ -187,6 +192,7 @@ class Player(Component):
         else:
             script = 'tell application "Spotify" to next track'
             self.runOsascript(script)
+        log.log("Went to Next Song")
 
     def prevSong(self):
         if self.isLinux:
@@ -194,6 +200,7 @@ class Player(Component):
         else:
             script = 'tell application "Spotify" to previous track'
             self.runOsascript(script)
+        log.log("Went to Previous Song")
 
     def playSongInContext(self, songURI, contextURI):
         if self.isLinux:
@@ -208,6 +215,8 @@ class Player(Component):
         else:
             script = f'tell application "Spotify" to play track "{songURI}" in context "{contextURI}"'
             self.runOsascript(script)
+        log.log(f"Played song {songURI} in context {contextURI}")
+
 
     def playSong(self, songURI):
         if self.isLinux:
@@ -215,6 +224,7 @@ class Player(Component):
         else:
             script = f'tell application "Spotify" to play track "{songURI}"'
             self.runOsascript(script)
+        log.log(f"Played song {songURI}")
 
     def changeVolume(self, amount):
         if self.isLinux:
@@ -231,9 +241,11 @@ class Player(Component):
 
     def increaseVolume(self):
         self.changeVolume(10)
+        log.log("Increased Volume")
 
     def decreaseVolume(self):
         self.changeVolume(-10)
+        log.log("Decreased Volume")
 
 
 player = Player("player")

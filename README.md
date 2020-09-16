@@ -85,6 +85,7 @@ cd into $DIR and install requirements
 - document architecture
 - change name
 - add package to package repos (homebrew, apt, etc...)
+- organize codebase
 
 
 ##### Completed features
@@ -96,15 +97,15 @@ cd into $DIR and install requirements
 - snazzy lookin menu bar with some nice scroll effects on too long text
 - Linux compatibility
 - add some color to menubar
+- added logging output
 
 ##### In Progress Features
 
-- None currently
 - show song lyrics (Genius API)
 - menu searching with / (esc to exit search mode)
-- playlist menu component
 - keyboard shortcut config
-- logging component
+- continue adding logging, create a toggle shortcut
+- add main menu
 
 ##### Future Features
 

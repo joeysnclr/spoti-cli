@@ -6,6 +6,8 @@ import threading
 from Component import Component
 from ViewManager import viewManager
 
+term = viewManager.term
+
 
 if platform.system() == "Linux":
     import dbus
@@ -22,18 +24,15 @@ if platform.system() == "Linux":
 
 class Player(Component):
 
-    def __init__(self, name, shortcuts={}):
-        shortcuts = {
-            " ": self.togglePlay,
-            " ": self.togglePlay,
-            "H": self.prevSong,
-            "L": self.nextSong,
-            "?": self.togglePlay,
-            "s": self.toggleShuffle,
-            "r": self.toggleRepeat
-            # "i": self.showLyrics
-        }
-        Component.__init__(self, name, shortcuts)
+    def __init__(self, name):
+        super().__init__(name)
+        self.addShortcut(" ", self.togglePlay)
+        self.addShortcut(" ", self.togglePlay)
+        self.addShortcut("H", self.prevSong)
+        self.addShortcut("L", self.nextSong)
+        self.addShortcut("?", self.togglePlay)
+        self.addShortcut("s", self.toggleShuffle)
+        self.addShortcut("r", self.toggleRepeat)
 
         self.isLinux = platform.system() == "Linux"
         self.playing = False
@@ -67,8 +66,8 @@ class Player(Component):
         return bar
 
     def generatePlayingSymbolAndColor(self):
-        playingInfo = [u"\u25A0", 4] if not self.playing else [
-            u"\u25B6", 1]
+        playingInfo = [u"\u25A0", term.red] if not self.playing else [
+            u"\u25B6", term.green]
         return playingInfo
 
     def generatePlayingStatus(self):
@@ -99,8 +98,8 @@ class Player(Component):
 
         outputLines = [
             "",
-            songInfo,
-            f"{playingSymbol[0]} {playingStatus} {playBar}",
+            term.blue + songInfo,
+            f"{playingSymbol[1]}{playingSymbol[0]} {term.normal}{playingStatus} {term.green}{playBar}{term.normal}",
             playerSettings
         ]
         return outputLines

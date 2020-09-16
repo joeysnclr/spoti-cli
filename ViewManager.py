@@ -32,6 +32,8 @@ class ViewManager(object):
 
     def shortcuts(self, key):
         if key:
+            if key.is_sequence:
+                key = key.name
             # run global shortcuts
             if key in self.globalShortcuts:
                 self.globalShortcuts[key]()
@@ -51,10 +53,10 @@ class ViewManager(object):
         for height, component in zip(heights, self.components):
             componentOutputs.append(component.output(height))
         # clear screen and output each component
-        print(self.term.home + self.term.clear)
+        print(self.term.home)
         for output in componentOutputs:
             for line in output:
-                print(line)
+                print(self.term.clear_eol + line)
 
     def setMainView(self, component):
         self.mainView = component

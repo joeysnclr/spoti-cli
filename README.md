@@ -53,7 +53,7 @@ cd into $DIR and install requirements
 
 ##### Navigation
 
-- h: back to previous menu
+- h: back to previous menu (not implemented)
 - j: down 1 menu item
 - k: up 1 menu item
 - l: select menu item
@@ -62,7 +62,6 @@ cd into $DIR and install requirements
 - N: previous page
 - g: go to first item on page
 - G: go to last item on page
-- /: enter search input (esc to leave search mode)
 
 
 ##### Music Player
@@ -74,18 +73,9 @@ cd into $DIR and install requirements
 - r: toggle repeat
 
 
-##### Lyrics
-
-- i: fetch lyrics from Genius
-
-
 ##### Development
 
 - C: clear cache
-
-### Known Bugs
-
-- delay when exiting search mode
 
 ### Features/To Do
 
@@ -104,14 +94,17 @@ cd into $DIR and install requirements
 - Spotify controls (minimum functionality)
 - menu navigation controls (minimum functionality)
 - snazzy lookin menu bar with some nice scroll effects on too long text
-- menu searching with / (esc to exit search mode)
 - Linux compatibility
-- show song lyrics (Genius API)
 - add some color to menubar
 
 ##### In Progress Features
 
 - None currently
+- show song lyrics (Genius API)
+- menu searching with / (esc to exit search mode)
+- playlist menu component
+- keyboard shortcut config
+- logging component
 
 ##### Future Features
 
@@ -120,7 +113,6 @@ cd into $DIR and install requirements
 - album menu
 - audio visualizer
 - add songs to queue
-- show log of last action for amount of time
 - help menu
 
 

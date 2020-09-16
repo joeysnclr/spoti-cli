@@ -1,40 +1,81 @@
 import math
 from Component import Component
-from ViewManager import ViewManager
+from ViewManager import viewManager
+from Player import player
+
+term = viewManager.term
 
 
 class MenuItem(Component):
 
-    def __init__(self, name, shortcuts={}):
-        shortcuts["m"] = self.changeName
-        Component.__init__(self, name, shortcuts)
+    def __init__(self, name):
+        super().__init__(name)
+        self.addShortcut("l", self.onSelect)
+        self.addShortcut("KEY_ENTER", self.onSelect)
         self.isActive = False
+
+    def update(self):
+        pass
 
     def setActive(self, active):
         self.isActive = active
 
-    def changeName(self):
-        self.name = "shortcut"
+    def onSelect(self):
+        pass
+        # viewManager.mainView.name = self.name
 
     def output(self, lines):
-        output = self.name
         if self.isActive:
-            output += self.name
-        return output
+            return term.reverse + self.name + term.normal
+        return self.name
+
+    def handleShortcut(self, key):
+        if key in self.shortcuts:
+            self.shortcuts[key]()
 
 
 class Menu(Component):
 
-    def __init__(self, name, shortcuts={}, items=[]):
-        shortcuts["j"] = self.positionDown
-        shortcuts["k"] = self.positionUp
-        shortcuts["n"] = self.nextPage
-        shortcuts["N"] = self.prevPage
-        Component.__init__(self, name, shortcuts)
+    def __init__(self, name, items):
+        super().__init__(name)
+        self.addShortcut("j", self.positionDown)
+        self.addShortcut("k", self.positionUp)
+        self.addShortcut("n", self.nextPage)
+        self.addShortcut("N", self.prevPage)
+        self.addShortcut("g", self.positionFirst)
+        self.addShortcut("G", self.positionLast)
         self.items = items
+        self.currItems = []
         self.position = 0
         self.currPage = 1
-        self.currItems = []
+
+    def update(self):
+        pass
+
+    def handleShortcut(self, key):
+        if key in self.shortcuts:
+            self.shortcuts[key]()
+        # handle active item shortcut
+        self.currItems[self.position].handleShortcut(key)
+
+    def output(self, lines):
+        self.initPaging(lines)
+
+        # set all items to not active
+        for item in self.items:
+            item.setActive(False)
+
+        # set current position item to active
+        self.currItems[self.position].setActive(True)
+
+        # get outputs
+        outputLines = []
+        for item in self.currItems:
+            outputLines.append(item.output(1))
+
+        while len(outputLines) < lines:
+            outputLines.append("")
+        return outputLines
 
     def initPaging(self, lines):
         self.perPage = lines
@@ -42,32 +83,18 @@ class Menu(Component):
         if self.currPage > self.pages or self.currPage < 1:
             self.currPage = 1
             self.position = 0
-        startItems = (self.currPage - 1) * self.perPage
-        endItems = startItems + self.perPage
-        self.currItems = self.items[startItems:endItems]
-
-    def setPosition(self, n):
-        self.position = n
-
-    def changePositon(self, n):
-        lastPosition = self.perPage
-        if self.currPage == self.pages:
-            lastPosition = len(self.currItems)
-        nextPosition = self.position + n
-        if nextPosition >= 0 and nextPosition < lastPosition:
-            self.setPosition(nextPosition)
-
-    def positionDown(self):
-        self.changePositon(1)
-
-    def positionUp(self):
-        self.changePositon(-1)
+        startIndex = (self.currPage - 1) * self.perPage
+        endIndex = self.currPage * self.perPage
+        currItems = self.items[startIndex:endIndex]
+        self.currItems = currItems
+        if self.position > len(self.currItems) - 1:
+            self.position = 0
 
     def changePage(self, n):
-        newPageNum = self.currPage + n
-        if newPageNum > 0 and newPageNum <= self.pages:
-            self.currPage = newPageNum
-            self.setPosition(0)
+        nextPage = self.currPage + n
+        if nextPage < 1 or nextPage > self.pages:
+            return
+        self.currPage = nextPage
 
     def nextPage(self):
         self.changePage(1)
@@ -75,24 +102,20 @@ class Menu(Component):
     def prevPage(self):
         self.changePage(-1)
 
-    def output(self, lines):
-        output = []
-        self.initPaging(lines)
-        # remove active from all items
-        for item in self.items:
-            item.setActive(False)
-        for i, item in enumerate(self.currItems):
-            if i == self.position:
-                item.setActive(True)
-            output.append(item.output(1))
+    def changePosition(self, n):
+        newPosition = self.position + n
+        if newPosition < 0 or newPosition > len(self.currItems) - 1:
+            return
+        self.position = newPosition
 
-        while len(output) < lines:
-            output.append("")
-        return output
+    def positionDown(self):
+        self.changePosition(1)
 
-    def handleShortcut(self, key):
-        if key in self.shortcuts:
-            self.shortcuts[key]()
-        for item in self.currItems:
-            if item.isActive:
-                item.handleShortcut(key)
+    def positionUp(self):
+        self.changePosition(-1)
+
+    def positionFirst(self):
+        self.position = 0
+
+    def positionLast(self):
+        self.position = len(self.currItems) - 1

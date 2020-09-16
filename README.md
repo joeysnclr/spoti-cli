@@ -77,6 +77,7 @@ cd into $DIR and install requirements
 ##### Development
 
 - C: clear cache
+- D: toggle logging display
 
 ### Features/To Do
 
@@ -101,6 +102,7 @@ cd into $DIR and install requirements
 - added logging output
 - show song lyrics (Genius API)
 - add songs to queue
+- add main menu
 
 ##### In Progress Features
 
@@ -108,7 +110,6 @@ cd into $DIR and install requirements
 - menu searching with / (esc to exit search mode)
 - keyboard shortcut config
 - continue adding logging, create a toggle shortcut
-- add main menu
 
 ##### Future Features
 
@@ -118,6 +119,7 @@ cd into $DIR and install requirements
 - audio visualizer
 - help menu
 - podcast listening functionality
+- change Spotify device
 
 
 ### Contributing

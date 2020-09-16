@@ -71,6 +71,7 @@ cd into $DIR and install requirements
 - L: next song
 - s: toggle shuffle
 - r: toggle repeat
+- i: show lyrics
 
 
 ##### Development
@@ -98,10 +99,12 @@ cd into $DIR and install requirements
 - Linux compatibility
 - add some color to menubar
 - added logging output
+- show song lyrics (Genius API)
+- add songs to queue
 
 ##### In Progress Features
 
-- show song lyrics (Genius API)
+- add lyrics caching (permanent)
 - menu searching with / (esc to exit search mode)
 - keyboard shortcut config
 - continue adding logging, create a toggle shortcut
@@ -113,7 +116,6 @@ cd into $DIR and install requirements
 - artist menu
 - album menu
 - audio visualizer
-- add songs to queue
 - help menu
 
 

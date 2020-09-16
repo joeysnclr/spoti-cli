@@ -5,6 +5,7 @@ import Utils.utils as utils
 import threading
 from Component import Component
 from ViewManager import viewManager
+from Lyrics import Lyrics
 from Log import log
 
 term = viewManager.term
@@ -34,6 +35,7 @@ class Player(Component):
         self.addShortcut("?", self.togglePlay)
         self.addShortcut("s", self.toggleShuffle)
         self.addShortcut("r", self.toggleRepeat)
+        self.addShortcut("i", self.showLyrics)
 
         self.isLinux = platform.system() == "Linux"
         self.playing = False
@@ -247,10 +249,19 @@ class Player(Component):
         self.changeVolume(-10)
         log.log("Decreased Volume")
 
+    def addToQueue(self, songURI):
+        endpoint = f"/me/player/queue?uri={songURI}"
+        utils.spotifyPostAPI(endpoint, {})
+        log.log(f"Added {songURI} to queue")
+
+    def showLyrics(self):
+        viewManager.setMainView(Lyrics(self.currentSong, self.currentArtist))
+
 
 player = Player("player")
 
 # song = "spotify:track:6glsMWIMIxQ4BedzLqGVi4"
+# player.addToQueue(song)
 # context = "spotify:playlist:6sFCSiF2JWWCGnJ76yw93o"
 
 

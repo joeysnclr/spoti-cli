@@ -29,10 +29,6 @@ class MenuItem(Component):
             return term.reverse + self.name + term.normal
         return self.name
 
-    def handleShortcut(self, key):
-        if key in self.shortcuts:
-            self.shortcuts[key]()
-
 
 class Menu(Component):
 

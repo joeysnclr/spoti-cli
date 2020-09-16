@@ -114,15 +114,20 @@ def spotifyGetAPI(endpoint, cache=False):
     return response.json()
 
 
-def spotifyPostAPI(url, payload):
+def spotifyPostAPI(endpoint, payload):
     success = False
     while not success:
+        config = readConfig()
+        url = "https://api.spotify.com/v1" + endpoint
+        headers = {"Authorization": "Bearer " + config["access_token"]}
         try:
-            response = requests.post(url, data=payload)
-        except:
+            response = requests.post(url, data=payload, headers=headers)
+        except Exception as e:
             time.sleep(1)
             continue
-        if response.status_code == 200 and 'error' not in response.json():
+        if response.status_code == 204:
+            return
+        elif response.status_code == 200 and 'error' not in response.json():
             success = True
         elif response.status_code == 429:
             retryAfter = int(response.headers['Retry-After'])
@@ -182,7 +187,7 @@ def getTokens():
 
     # send request and save access token and refresh token (if there is one) in config
     postUrl = "https://accounts.spotify.com/api/token"
-    response = spotifyPostAPI(postUrl, body)
+    response = requests.post(postUrl, data=body).json()
     accessToken = response['access_token']
     config['access_token'] = accessToken
     if "refresh_token" in response:

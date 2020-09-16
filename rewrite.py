@@ -1,10 +1,10 @@
 from ViewManager import viewManager
 from Player import player
 from Log import log
-from Component import Component
 from TitleBar import TitleBar
 from PlaylistMenu import PlaylistMenu
 from Utils import utils
+
 
 def startApp():
     # initialize components here so that viewManager can init

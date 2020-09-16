@@ -9,6 +9,7 @@ class SongItem(MenuItem):
 
     def __init__(self, songData, contextURI=None):
         super().__init__(songData['track']['name'])
+        self.addShortcut("a", self.addToQueue)
         self.songData = songData
         self.songURI = songData['track']['uri']
         self.contextURI = contextURI
@@ -27,4 +28,9 @@ class SongItem(MenuItem):
         if isCurrentSong and isCurrentContext:
             return term.green + self.name + term.normal
         return self.name
+
+    def addToQueue(self):
+        player.addToQueue(self.songURI)
+
+
 

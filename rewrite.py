@@ -2,22 +2,14 @@ from ViewManager import viewManager
 from Player import player
 from Component import Component
 from TitleBar import TitleBar
-from Menu import Menu, MenuItem
+from PlaylistMenu import PlaylistMenu
 from SongItem import SongItem
 from Utils import utils
 
 def startApp():
-    items = []
-    response = utils.spotifyGetAPI("/playlists/6sFCSiF2JWWCGnJ76yw93o")
-    context = response['uri']
-    tracks = response["tracks"]["items"]
-    for track in tracks:
-        x = SongItem(track, contextURI=context)
-        items.append(x)
-
     # initialize components here so that viewManager can init
     viewManager.title = TitleBar("title")
-    viewManager.mainView = Menu("main", items=items)
+    viewManager.setMainView(PlaylistMenu())
     viewManager.player = player
     viewManager.start()
 

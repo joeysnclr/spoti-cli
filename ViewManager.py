@@ -1,5 +1,6 @@
 from blessed import Terminal
 from Component import Component
+import Utils.utils as utils
 
 
 class ViewManager(object):
@@ -10,8 +11,11 @@ class ViewManager(object):
         self.title = None
         self.mainView = None
         self.player = None
+        self.previousMainViews = []
         self.globalShortcuts = {
-            "q": self.quit
+            "q": self.quit,
+            "C": utils.clearCache,
+            "h": self.previousMainView
         }
 
     def start(self):
@@ -53,13 +57,19 @@ class ViewManager(object):
         for height, component in zip(heights, self.components):
             componentOutputs.append(component.output(height))
         # clear screen and output each component
-        print(self.term.home)
+        print(self.term.home + self.term.clear_eol)
         for output in componentOutputs:
             for line in output:
                 print(self.term.clear_eol + line)
 
     def setMainView(self, component):
+        if self.mainView != None:
+            self.previousMainViews.append(self.mainView)
         self.mainView = component
+
+    def previousMainView(self):
+        if len(self.previousMainViews) > 0:
+            self.mainView = self.previousMainViews.pop()
 
     def quit(self):
         self.running = False

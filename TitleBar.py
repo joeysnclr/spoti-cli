@@ -1,13 +1,11 @@
 from ViewManager import viewManager
 from Component import Component
-import Utils.utils as utils
 
 
 class TitleBar(Component):
 
     def __init__(self, name):
         super().__init__(name)
-        self.addShortcut("C", utils.clearCache)
 
     def output(self, lines):
         outputLines = []

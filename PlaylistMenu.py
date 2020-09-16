@@ -10,7 +10,7 @@ class PlaylistItem(MenuItem):
         self.playlistId = playlistId
 
     def onSelect(self):
-        viewManager.setMainView(Playlist(self.playlistId))
+        viewManager.setMainView(Playlist(self.name, self.playlistId))
 
 
 

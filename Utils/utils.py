@@ -86,15 +86,16 @@ def cacheResponse(endpoint, response):
     writeCache(cache)
 
 
-def spotifyGetAPI(endpoint, cache=False):
+def spotifyGetAPI(endpoint, cache=False, paged=False):
     if cache:
         if endpointIsCached(endpoint):
             return readCache()[endpoint]
 
+    url = "https://api.spotify.com/v1" + endpoint
+    output = []
     success = False
     while not success:
         config = readConfig()
-        url = "https://api.spotify.com/v1" + endpoint
         headers = {"Authorization": "Bearer " + config["access_token"]}
         try:
             response = requests.get(url, headers=headers)
@@ -102,16 +103,27 @@ def spotifyGetAPI(endpoint, cache=False):
             time.sleep(1)
             continue
         if response.status_code == 200 and 'error' not in response.json():
-            success = True
+            if paged:
+                content = response.json()
+                # append items to response
+                for item in content['items']:
+                    output.append(item)
+                if not content["next"]:
+                    success = True
+                else:
+                    url = content["next"]
+            else:
+                output = response.json()
+                success = True
         elif response.status_code == 429:
             retryAfter = int(response.headers['Retry-After'])
             time.sleep(retryAfter)
         else:
             getTokens()
     if cache:
-        cacheResponse(endpoint, response.json())
+        cacheResponse(endpoint, output)
 
-    return response.json()
+    return output
 
 
 def spotifyPostAPI(endpoint, payload):

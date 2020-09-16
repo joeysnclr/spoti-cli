@@ -117,6 +117,7 @@ cd into $DIR and install requirements
 - album menu
 - audio visualizer
 - help menu
+- podcast listening functionality
 
 
 ### Contributing

@@ -4,14 +4,14 @@ from ViewManager import viewManager
 from Player import player
 from Log import log
 from TitleBar import TitleBar
-from PlaylistMenu import PlaylistMenu
+from MainMenu import MainMenu
 from Utils import utils
 
 
 def startApp():
     # initialize components here so that viewManager can init
     viewManager.title = TitleBar("title")
-    viewManager.setMainView(PlaylistMenu())
+    viewManager.setMainView(MainMenu())
     viewManager.player = player
     viewManager.logOutput = log
     viewManager.start()

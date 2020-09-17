@@ -1,6 +1,6 @@
-from Menu import Menu, MenuItem
 from ViewManager import viewManager
-from PlaylistMenu import PlaylistMenu
+from Components.Templates.Menu import Menu, MenuItem
+from Components.Main.PlaylistMenu import PlaylistMenu
 
 class MainMenuItem(MenuItem):
 

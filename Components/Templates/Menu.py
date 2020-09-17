@@ -1,7 +1,7 @@
 import math
-from Component import Component
 from ViewManager import viewManager
-from Player import player
+from Components.Templates.Component import Component
+from Components.Main.Player import player
 
 term = viewManager.term
 

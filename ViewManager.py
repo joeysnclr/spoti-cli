@@ -1,6 +1,6 @@
 from blessed import Terminal
-from Component import Component
-import Utils.utils as utils
+from Components.Templates.Component import Component
+from Utils.utils import clearCache
 
 
 class ViewManager(object):

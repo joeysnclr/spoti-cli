@@ -1,11 +1,11 @@
 import webbrowser
 import json
 import threading
-import Utils.server as server
 import time
 import requests
 import os
 import sys
+from Utils.server import run
 
 
 configPath = os.path.abspath(os.path.expanduser("~/.terminal-spotify.json"))
@@ -210,7 +210,7 @@ def getTokens():
 
 def verify():
     # start server thread
-    serverThread = threading.Thread(target=server.run, daemon=True)
+    serverThread = threading.Thread(target=runServer, daemon=True)
     serverThread.start()
     # print instructions
     print("1. Go to the Spotify Dashboard, create an app")

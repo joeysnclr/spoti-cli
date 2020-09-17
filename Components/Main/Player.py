@@ -1,12 +1,12 @@
 import os
 import platform
 import time
-import Utils.utils as utils
 import threading
-from Component import Component
 from ViewManager import viewManager
-from Lyrics import Lyrics
-from Log import log
+from Utils.utils import msFormat, spotifyGetAPI, spotifyPutAPI, spotifyPostAPI
+from Components.Templates.Component import Component
+from Components.Main.Lyrics import Lyrics
+from Components.Main.Log import log
 
 term = viewManager.term
 
@@ -74,8 +74,8 @@ class Player(Component):
         return playingInfo
 
     def generatePlayingStatus(self):
-        timeCurr = utils.msFormat(self.currentTime)
-        timeTotal = utils.msFormat(self.currentTotalTime)
+        timeCurr = msFormat(self.currentTime)
+        timeTotal = msFormat(self.currentTotalTime)
         status = f" {timeCurr}/{timeTotal} "
         return status
 
@@ -110,7 +110,7 @@ class Player(Component):
     def getPlayerContext(self):
         while not self.stopThread:
             try:
-                context = utils.spotifyGetAPI("/me/player")
+                context = spotifyGetAPI("/me/player")
                 self.playing = context['is_playing']
                 self.shuffle = context['shuffle_state']
                 self.repeat = context['repeat_state']
@@ -154,7 +154,7 @@ class Player(Component):
             if self.shuffle:
                 newState = "false"
             endpoint = "/me/player/shuffle?state=" + newState
-            utils.spotifyPutAPI(endpoint)
+            spotifyPutAPI(endpoint)
         else:
             script = '''
                 tell application "Spotify"
@@ -174,7 +174,7 @@ class Player(Component):
             if self.repeat == "off":
                 newState = "context"
             endpoint = "/me/player/repeat?state=" + newState
-            utils.spotifyPutAPI(endpoint)
+            spotifyPutAPI(endpoint)
         else:
             script = '''
                 tell application "Spotify"
@@ -236,7 +236,7 @@ class Player(Component):
             elif newVolume < 0:
                 newVolume = 0
             endpoint = "/me/player/volume?volume_percent=" + str(newVolume)
-            utils.spotifyPutAPI(endpoint)
+            spotifyPutAPI(endpoint)
         else:
             script = f'tell application "Spotify" to set sound volume to sound volume + {amount}'
             self.runOsascript(script)
@@ -251,7 +251,7 @@ class Player(Component):
 
     def addToQueue(self, songURI):
         endpoint = f"/me/player/queue?uri={songURI}"
-        utils.spotifyPostAPI(endpoint, {})
+        spotifyPostAPI(endpoint, {})
         log.log(f"Added {songURI} to queue")
 
     def showLyrics(self):

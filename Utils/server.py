@@ -3,7 +3,7 @@ import json
 import os
 import logging
 import requests
-import Utils.utils as utils
+from Utils.utils import readConfig, writeConfig
 
 # create flask app
 app = Flask(__name__)
@@ -22,9 +22,9 @@ def hello_world():
         return "error! try again please"
     code = request.args.get("code")
 
-    config = utils.readConfig()
+    config = readConfig()
     config['code'] = code
-    utils.writeConfig(config)
+    writeConfig(config)
 
     return "enjoy clify!"
 
@@ -34,5 +34,5 @@ def shutdown():
     quit()
 
 
-def run():
+def runServer():
     app.run()

@@ -1,8 +1,8 @@
-from Component import Component
-from Menu import MenuItem
-from Player import player
 from ViewManager import viewManager
-import Utils.utils as utils
+from Components.Templates.Component import Component
+from Components.Templates.Menu import MenuItem
+from Components.Main.Player import player
+from Utils.utils import msFormat
 
 term = viewManager.term
 
@@ -19,7 +19,7 @@ class SongItem(MenuItem):
         track = self.songData['track']
         songName = track['name']
         dur = track['duration_ms']
-        time = utils.msFormat(dur)
+        time = msFormat(dur)
         artistsStr = track['artists'][0]['name']
         timeChars = 8
         songChars = int(width * .5)

@@ -1,11 +1,12 @@
 #!/usr/bin/env python3
 
 from ViewManager import viewManager
-from Player import player
-from Log import log
-from TitleBar import TitleBar
-from MainMenu import MainMenu
-from Utils import utils
+from Components.Main.Player import player
+from Components.Main.Log import log
+from Components.Main.TitleBar import TitleBar
+from Components.Main.MainMenu import MainMenu
+from Utils.utils import clearCache, readConfig
+from Utils.authenticate import verify, getTokens
 
 
 def startApp():
@@ -19,17 +20,17 @@ def startApp():
 
 if __name__ == "__main__":
     # clears cache from last session
-    utils.clearCache()
+    clearCache()
 
     # gets config
-    config = utils.readConfig()
+    config = readConfig()
 
 
     # spotify user log in if first time
     if not config.get("hasVerified", False):
-        utils.verify()
+        verify()
     else:
-        utils.getTokens()
+        getTokens()
     # start view manager
     startApp()
     quit()

@@ -1,5 +1,5 @@
 from ViewManager import viewManager
-from Component import Component
+from Components.Templates.Component import Component
 
 
 class TitleBar(Component):

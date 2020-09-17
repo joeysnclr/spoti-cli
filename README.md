@@ -87,7 +87,6 @@ cd into $DIR and install requirements
 - document architecture
 - change name
 - add package to package repos (homebrew, apt, etc...)
-- organize codebase
 
 
 ##### Completed features

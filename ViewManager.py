@@ -1,6 +1,6 @@
 from blessed import Terminal
-from Component import Component
-import Utils.utils as utils
+from Components.Templates.Component import Component
+from Utils.utils import clearCache
 
 
 class ViewManager(object):
@@ -15,7 +15,7 @@ class ViewManager(object):
         self.previousMainViews = []
         self.globalShortcuts = {
             "q": self.quit,
-            "C": utils.clearCache,
+            "C": clearCache,
             "h": self.previousMainView
         }
 

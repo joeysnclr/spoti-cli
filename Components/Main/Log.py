@@ -1,4 +1,4 @@
-from Component import Component
+from Components.Templates.Component import Component
 
 
 class Log(Component):

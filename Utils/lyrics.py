@@ -1,10 +1,10 @@
 import requests
-import Utils.utils as utils
 from bs4 import BeautifulSoup
+from Utils.utils import readConfig
 
 
 def getLyrics(song, artist):
-    config = utils.readConfig()
+    config = readConfig()
     if 'geniusToken' not in config:
         return ["Could not find Genius API access token"]
     url = 'https://api.genius.com/search'

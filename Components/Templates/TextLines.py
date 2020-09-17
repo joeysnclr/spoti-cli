@@ -1,8 +1,8 @@
 import math
-from Component import Component
+import Components.Templates.Component as Component
 
 
-class TextLines(Component):
+class TextLines(Component.Component):
 
     def __init__(self, name, lines):
         super().__init__(name)

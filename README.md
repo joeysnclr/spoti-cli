@@ -87,6 +87,7 @@ cd into $DIR and install requirements
 - document architecture
 - change name
 - add package to package repos (homebrew, apt, etc...)
+- organize config/cache/shortcuts files [ XDG ](https://specifications.freedesktop.org/basedir-spec/basedir-spec-latest.html)
 
 
 ##### Completed features

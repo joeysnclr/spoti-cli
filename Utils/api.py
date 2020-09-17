@@ -1,6 +1,6 @@
 import time
 import requests
-from Utils.utils import readConfig, readCache, writeCache, endpointIsCached, cacheResponse
+from Utils.utils import readConfig, writeConfig, readCache, writeCache, endpointIsCached, cacheResponse
 from Utils.authenticate import getTokens
 
 def getUserData():

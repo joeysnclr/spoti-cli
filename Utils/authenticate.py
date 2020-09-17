@@ -1,6 +1,10 @@
+import time
+import webbrowser
+import threading
 import requests
 from Utils.utils import readConfig, writeConfig
 from Utils.server import runServer
+import Utils.api
 
 
 
@@ -91,5 +95,5 @@ def verify():
     # get access/refresh tokens and user info
     getTokens()
     print("retrieved tokens")
-    getUserData()
+    Utils.api.getUserData()
     print("retrieved user data")

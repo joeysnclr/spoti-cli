@@ -5,7 +5,7 @@ from Components.Main.Player import player
 from Components.Main.Log import log
 from Components.Main.TitleBar import TitleBar
 from Components.Main.MainMenu import MainMenu
-from Utils.utils import clearCache, readConfig
+from Utils.utils import clearCache, readConfig, writeConfig
 from Utils.authenticate import verify, getTokens
 
 
@@ -22,6 +22,7 @@ if __name__ == "__main__":
     # clears cache from last session
     clearCache()
 
+    writeConfig({})
     # gets config
     config = readConfig()
 

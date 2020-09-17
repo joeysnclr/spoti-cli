@@ -3,7 +3,8 @@ import platform
 import time
 import threading
 from ViewManager import viewManager
-from Utils.utils import msFormat, spotifyGetAPI, spotifyPutAPI, spotifyPostAPI
+from Utils.utils import msFormat
+from Utils.api import spotifyGetAPI, spotifyPutAPI, spotifyPostAPI
 from Components.Templates.Component import Component
 from Components.Main.Lyrics import Lyrics
 from Components.Main.Log import log
@@ -36,6 +37,8 @@ class Player(Component):
         self.addShortcut("s", self.toggleShuffle)
         self.addShortcut("r", self.toggleRepeat)
         self.addShortcut("i", self.showLyrics)
+        self.addShortcut("-", self.decreaseVolume)
+        self.addShortcut("+", self.increaseVolume)
 
         self.isLinux = platform.system() == "Linux"
         self.playing = False

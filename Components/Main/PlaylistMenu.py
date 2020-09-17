@@ -1,4 +1,4 @@
-from Utils.utils import spotifyGetAPI
+from Utils.api import spotifyGetAPI
 from ViewManager import viewManager
 from Components.Templates.Menu import Menu, MenuItem
 from Components.Main.Playlist import Playlist

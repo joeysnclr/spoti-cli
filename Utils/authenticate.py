@@ -1,13 +1,8 @@
 import requests
-from Utils.utils import readConfig, writeConfig, spotifyGetAPI
+from Utils.utils import readConfig, writeConfig
 from Utils.server import runServer
 
 
-def getUserData():
-    config = readConfig()
-    user = spotifyGetAPI("/me/")
-    config['userId'] = user['id']
-    writeConfig(config)
 
 
 def getTokens():

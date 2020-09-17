@@ -19,7 +19,7 @@ class SongItem(MenuItem):
         track = self.songData['track']
         songName = track['name']
         dur = track['duration_ms']
-        time = utils.msFormat(dur)
+        time = msFormat(dur)
         artistsStr = track['artists'][0]['name']
         timeChars = 8
         songChars = int(width * .5)

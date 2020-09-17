@@ -88,6 +88,7 @@ cd into $DIR and install requirements
 - change name
 - add package to package repos (homebrew, apt, etc...)
 - organize codebase
+- create Utils/api.py for spotify API stuff
 
 
 ##### Completed features

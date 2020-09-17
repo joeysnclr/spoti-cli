@@ -15,7 +15,7 @@ class ViewManager(object):
         self.previousMainViews = []
         self.globalShortcuts = {
             "q": self.quit,
-            "C": utils.clearCache,
+            "C": clearCache,
             "h": self.previousMainView
         }
 

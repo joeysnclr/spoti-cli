@@ -2,7 +2,7 @@ from Components.Templates.TextLines import TextLines
 from Utils.lyrics import getLyrics
 
 
-class Lyrics(TextLines.TextLines):
+class Lyrics(TextLines):
 
     def __init__(self, song, artist):
         lyricLines = getLyrics(song, artist)

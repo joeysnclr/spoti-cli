@@ -79,18 +79,9 @@ cd into $DIR and install requirements
 - C: clear cache
 - D: toggle logging display
 
-### Features/To Do
+### To Do
 
-##### To Do List
-
-- move cache file
-- document architecture
-- change name
-- add package to package repos (homebrew, apt, etc...)
-- organize config/cache/shortcuts files [ XDG ](https://specifications.freedesktop.org/basedir-spec/basedir-spec-latest.html)
-
-
-##### Completed features
+##### Completed
 
 - playlist menu
 - song menu
@@ -103,16 +94,20 @@ cd into $DIR and install requirements
 - show song lyrics (Genius API)
 - add songs to queue
 - add main menu
+- organize config/cache files [ XDG ](https://specifications.freedesktop.org/basedir-spec/basedir-spec-latest.html)
 
-##### In Progress Features
+##### In Progress
+
+- keyboard shortcut config
+
+##### Future
 
 - add lyrics caching (permanent)
 - menu searching with / (esc to exit search mode)
-- keyboard shortcut config
 - continue adding logging, create a toggle shortcut
-
-##### Future Features
-
+- document architecture
+- change name
+- add package to package repos (homebrew, apt, etc...)
 - Spotify search
 - artist menu
 - album menu

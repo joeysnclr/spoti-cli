@@ -52,7 +52,8 @@ class Menu(Component):
         if key in self.shortcuts:
             self.shortcuts[key]()
         # handle active item shortcut
-        self.currItems[self.position].handleShortcut(key)
+        if len(self.currItems) > 0:
+            self.currItems[self.position].handleShortcut(key)
 
     def output(self, lines):
         self.initPaging(lines)

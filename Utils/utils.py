@@ -7,25 +7,35 @@ import os
 import sys
 
 
-configPath = os.path.abspath(os.path.expanduser("~/.terminal-spotify.json"))
-cachePath = os.path.abspath(
-    os.path.expanduser("~/.terminal-spotify-cache.json"))
+CONFIG_DIR_PATH = os.path.abspath(os.path.expanduser("~/.config/terminal-spotify/"))
+CONFIG_FILE_PATH = os.path.join(CONFIG_DIR_PATH, "config.json")
+
+if not os.path.exists(CONFIG_DIR_PATH):
+    os.makedirs(CONFIG_DIR_PATH, exist_ok=True)
+
+
+CACHE_DIR_PATH = os.path.abspath(os.path.expanduser("~/.cache/terminal-spotify/"))
+CACHE_FILE_PATH = os.path.join(CACHE_DIR_PATH, "cache.json")
+
+if not os.path.exists(CACHE_DIR_PATH):
+    os.makedirs(CACHE_DIR_PATH, exist_ok=True)
+
 
 
 def createConfig():
     config = {'hasVerified': False}
-    open(configPath, 'a').close()
+    open(CONFIG_FILE_PATH, 'a').close()
     writeConfig(config)
 
 
 def readConfig():
-    if not os.path.exists(configPath):
+    if not os.path.exists(CONFIG_FILE_PATH):
         createConfig()
     # continous retry to read file - sometimes throws error when accessing file from main thread and child thread
     success = False
     while not success:
         try:
-            with open(configPath, "r+") as file:
+            with open(CONFIG_FILE_PATH, "r+") as file:
                 config = json.load(file)
                 success = True
         except:
@@ -38,7 +48,7 @@ def writeConfig(config):
     success = False
     while not success:
         try:
-            with open(configPath, "w") as file:
+            with open(CONFIG_FILE_PATH, "w") as file:
                 json.dump(config, file)
                 success = True
         except:
@@ -53,14 +63,14 @@ def msFormat(ms):
 
 def createCache():
     cache = {}
-    open(cachePath, 'a').close()
+    open(CACHE_FILE_PATH, 'a').close()
     writeCache(cache)
 
 
 def readCache():
-    if not os.path.exists(cachePath):
+    if not os.path.exists(CACHE_FILE_PATH):
         createCache()
-    with open(cachePath, "r+") as file:
+    with open(CACHE_FILE_PATH, "r+") as file:
         cache = json.load(file)
     return cache
 
@@ -70,7 +80,7 @@ def clearCache():
 
 
 def writeCache(cache):
-    with open(cachePath, "w") as file:
+    with open(CACHE_FILE_PATH, "w") as file:
         json.dump(cache, file)
 
 

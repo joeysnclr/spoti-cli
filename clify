@@ -22,7 +22,6 @@ if __name__ == "__main__":
     # clears cache from last session
     clearCache()
 
-    writeConfig({})
     # gets config
     config = readConfig()
 

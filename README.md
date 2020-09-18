@@ -103,6 +103,7 @@ cd into $DIR and install requirements
 ##### Future
 
 - incorporate update function to Component (keep output function strictly to getting the output)
+- abstract player into player and component classes
 - response menu item output
 - add lyrics caching (permanent)
 - menu searching with / (esc to exit search mode)

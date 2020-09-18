@@ -49,8 +49,7 @@ class Menu(Component):
         pass
 
     def handleShortcut(self, key):
-        if key in self.shortcuts:
-            self.shortcuts[key]()
+        super().handleShortcut(key)
         # handle active item shortcut
         if len(self.currItems) > 0:
             self.currItems[self.position].handleShortcut(key)

@@ -16,7 +16,8 @@ class ViewManager(object):
         self.globalShortcuts = {
             "q": self.quit,
             "C": clearCache,
-            "h": self.previousMainView
+            "h": self.previousMainView,
+            "KEY_ESCAPE": self.previousMainView
         }
 
     def start(self):
@@ -33,7 +34,7 @@ class ViewManager(object):
                 self.shortcuts(key)
                 # rendering
                 self.render()
-            print(self.term.home + self.term.clear)
+            print(self.term.home + self.term.clear, end='')
 
     def shortcuts(self, key):
         if key:
@@ -75,7 +76,6 @@ class ViewManager(object):
 
     def quit(self):
         self.running = False
-        quit()
 
 
 viewManager = ViewManager(Terminal())

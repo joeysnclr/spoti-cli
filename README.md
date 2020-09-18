@@ -104,8 +104,9 @@ cd into $DIR and install requirements
 
 - incorporate update function to Component (keep output function strictly to getting the output)
 - abstract player into player and component classes
-- response menu item output
+- responsive lines
 - add lyrics caching (permanent)
+- add setting; reset cache on startup
 - menu searching with / (esc to exit search mode)
 - continue adding logging, create a toggle shortcut
 - document architecture

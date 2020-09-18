@@ -44,9 +44,9 @@ cd into $DIR and install requirements
 
 `rm -rf $DIR`
 
-`rm ~./terminal-spotify.json`
+`rm -rf ~/.config/terminal-spotify`
 
-`rm ~./terminal-spotify-cache.json` (this should be changed)
+`rm -rf ~/.cache/terminal-spotify` (this should be changed)
 
 
 ### Shortcuts
@@ -102,6 +102,8 @@ cd into $DIR and install requirements
 
 ##### Future
 
+- incorporate update function to Component (keep output function strictly to getting the output)
+- response menu item output
 - add lyrics caching (permanent)
 - menu searching with / (esc to exit search mode)
 - continue adding logging, create a toggle shortcut
@@ -115,6 +117,8 @@ cd into $DIR and install requirements
 - help menu
 - podcast listening functionality
 - change Spotify device
+- player view only mode
+- minimal ui mode [here](https://i.redd.it/mnerempmqwm51.png)
 
 
 ### Contributing

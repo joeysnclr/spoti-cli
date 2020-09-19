@@ -14,8 +14,5 @@ class TitleBar(Component):
         title = mainViewName
         if hasattr(mainView, "pages"):
             title += f" {mainView.currPage}/{mainView.pages}"
-
         outputLines.append(title)
-        for i in range(lines - 1):
-            outputLines.append("")
         return outputLines

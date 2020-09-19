@@ -28,10 +28,14 @@ class ViewManager(object):
             while self.running:
                 # wait for key
                 key = self.term.inkey(timeout=.03333)
+                # key = self.term.inkey(timeout=5)
                 # reset components in case mainView has changed
                 self.components = [self.title, self.mainView, self.player, self.logOutput]
+                self.componentHeights = self.calcHeights()
                 # shortcuts
                 self.shortcuts(key)
+                # updating
+                self.update()
                 # rendering
                 self.render()
             print(self.term.home + self.term.clear, end='')
@@ -47,23 +51,34 @@ class ViewManager(object):
             for component in self.components:
                 component.handleShortcut(key)
 
+    def update(self):
+        for height, component in zip(self.componentHeights, self.components):
+            component.update(height)
+
     def render(self):
-        # calculate # of lines for each component
-        height = self.term.height - 1
-        titleHeight = 2
-        playerHeight = 5
-        logOutputHeight = 1
-        mainViewHeight = height - titleHeight - playerHeight - logOutputHeight
-        heights = [titleHeight, mainViewHeight, playerHeight, logOutputHeight]
         # gather output for each component
         componentOutputs = []
-        for height, component in zip(heights, self.components):
-            componentOutputs.append(component.output(height))
+        for height, component in zip(self.componentHeights, self.components):
+            output = component.output(height)
+            while len(output) < height:
+                output.append("")
+            componentOutputs.append(output)
+
         # clear screen and output each component
-        print(self.term.home + self.term.clear_eol)
+        print(self.term.home + self.term.clear_eol, end="")
         for output in componentOutputs:
             for line in output:
                 print(self.term.clear_eol + line)
+
+    def calcHeights(self):
+        # calculate # of lines for each component
+        height = self.term.height - 1
+        titleHeight = 2
+        playerHeight = 3
+        logOutputHeight = 1
+        mainViewHeight = height - titleHeight - playerHeight - logOutputHeight
+        heights = [titleHeight, mainViewHeight, playerHeight, logOutputHeight]
+        return heights
 
     def setMainView(self, component):
         if self.mainView != None:

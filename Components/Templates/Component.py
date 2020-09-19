@@ -5,7 +5,7 @@ class Component(object):
         self.name = name
         self.shortcuts = {}
 
-    def update(self):
+    def update(self, lines):
         pass
 
     def output(self, lines):

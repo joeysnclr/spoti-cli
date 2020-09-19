@@ -103,7 +103,6 @@ class Player(Component):
         playerSettings = f"Shuffle: {shuffled}   Repeat: {repeatSymbols[repeat]}    Volume: {volume}%"
 
         outputLines = [
-            "",
             term.blue + songInfo,
             f"{playingSymbol[1]}{playingSymbol[0]} {term.normal}{playingStatus} {term.green}{playBar}{term.normal}",
             playerSettings

@@ -45,16 +45,7 @@ class Menu(Component):
         self.position = 0
         self.currPage = 1
 
-    def update(self):
-        pass
-
-    def handleShortcut(self, key):
-        super().handleShortcut(key)
-        # handle active item shortcut
-        if len(self.currItems) > 0:
-            self.currItems[self.position].handleShortcut(key)
-
-    def output(self, lines):
+    def update(self, lines):
         self.initPaging(lines)
 
         # set all items to not active
@@ -64,17 +55,22 @@ class Menu(Component):
         # set current position item to active
         self.currItems[self.position].setActive(True)
 
+    def handleShortcut(self, key):
+        super().handleShortcut(key)
+        # handle active item shortcut
+        if len(self.currItems) > 0:
+            self.currItems[self.position].handleShortcut(key)
+
+    def output(self, lines):
         # get outputs
         outputLines = []
         for item in self.currItems:
             outputLines.append(item.output(1))
 
-        while len(outputLines) < lines:
-            outputLines.append("")
         return outputLines
 
     def initPaging(self, lines):
-        self.perPage = lines
+        self.perPage = lines - 1
         self.pages = math.ceil(len(self.items) / self.perPage)
         if self.currPage > self.pages or self.currPage < 1:
             self.currPage = 1

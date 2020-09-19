@@ -25,8 +25,6 @@ class TextLines(Component.Component):
     def output(self, lines):
         self.initPaging(lines)
         outputLines = self.currLines
-        while len(outputLines) < lines:
-            outputLines.append("")
         return outputLines
 
     def changePage(self, n):

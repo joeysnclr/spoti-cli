@@ -95,6 +95,7 @@ cd into $DIR and install requirements
 - add songs to queue
 - add main menu
 - organize config/cache files [ XDG ](https://specifications.freedesktop.org/basedir-spec/basedir-spec-latest.html)
+- incorporate update function to Component (keep output function strictly to getting the output)
 
 ##### In Progress
 
@@ -102,7 +103,6 @@ cd into $DIR and install requirements
 
 ##### Future
 
-- incorporate update function to Component (keep output function strictly to getting the output)
 - abstract player into player and component classes
 - responsive lines
 - add lyrics caching (permanent)

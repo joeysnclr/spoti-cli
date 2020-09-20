@@ -5,7 +5,7 @@ from Components.Main.Player import player
 from Components.Main.Log import log
 from Components.Main.TitleBar import TitleBar
 from Components.Main.MainMenu import MainMenu
-from Utils.utils import clearCache, readConfig, writeConfig
+from Utils.utils import spotifyCache, userdata
 from Utils.authenticate import verify, getTokens
 
 
@@ -20,14 +20,10 @@ def startApp():
 
 if __name__ == "__main__":
     # clears cache from last session
-    clearCache()
-
-    # gets config
-    config = readConfig()
-
+    spotifyCache.clear()
 
     # spotify user log in if first time
-    if not config.get("hasVerified", False):
+    if not userdata.get("hasVerified", False):
         verify()
     else:
         getTokens()

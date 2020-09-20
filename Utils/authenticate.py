@@ -2,7 +2,7 @@ import time
 import webbrowser
 import threading
 import requests
-from Utils.utils import readConfig, writeConfig
+from Utils.utils import userdata
 from Utils.server import runServer
 import Utils.api
 
@@ -11,11 +11,10 @@ import Utils.api
 
 def getTokens():
     # use code from verification if new user, else use refresh token
-    config = readConfig()
-    clientId = config['clientId']
-    clientSecret = config['clientSecret']
-    if 'refresh_token' in config:
-        code = config['refresh_token']
+    clientId = userdata.get('clientId')
+    clientSecret = userdata.get('clientSecret')
+    if 'refresh_token' in userdata.read():
+        code = userdata.get('refresh_token')
         body = {
             "grant_type": "refresh_token",
             "refresh_token": code,
@@ -23,7 +22,7 @@ def getTokens():
             "client_secret": clientSecret
         }
     else:
-        code = config['code']
+        code = userdata.get('code')
         body = {
             "grant_type": "authorization_code",
             "code": code,
@@ -36,11 +35,10 @@ def getTokens():
     postUrl = "https://accounts.spotify.com/api/token"
     response = requests.post(postUrl, data=body).json()
     accessToken = response['access_token']
-    config['access_token'] = accessToken
+    userdata.set("access_token", accessToken)
     if "refresh_token" in response:
         refreshToken = response['refresh_token']
-        config['refresh_token'] = refreshToken
-    writeConfig(config)
+        userdata.set("refresh_token", refreshToken)
 
 
 def verify():
@@ -55,10 +53,8 @@ def verify():
     # get clientId and clientSecret from user, save in config
     clientId = input("Enter your Client ID >> ")
     clientSecret = input("Enter your Client Secret >> ")
-    config = readConfig()
-    config["clientId"] = clientId
-    config["clientSecret"] = clientSecret
-    writeConfig(config)
+    userdata.set("clientId", clientId)
+    userdata.set("clientSecret", clientSecret)
     # set recirectURL, scopes, and generate spotify url
     redirectUri = "http://localhost:5000/auth"
     scopes = "ugc-image-upload user-read-playback-state user-modify-playback-state user-read-currently-playing streaming app-remote-control user-read-email user-read-private playlist-read-collaborative playlist-modify-public playlist-read-private playlist-modify-private user-library-modify user-library-read user-top-read user-read-playback-position user-read-recently-played user-follow-read user-follow-modify"
@@ -72,9 +68,8 @@ def verify():
     # ends server thread when gets code
     codeRecieved = False
     while not codeRecieved:
-        currConfig = readConfig()
-        if "code" in currConfig:
-            code = currConfig["code"]
+        if "code" in userdata.read():
+            code = userdata.get("code")
             codeRecieved = True
             try:
                 requests.get("http://localhost:5000/shutdown")
@@ -84,16 +79,12 @@ def verify():
             time.sleep(.5)
     print("recieved code")
     # save code
-    config = readConfig()
-    config['code'] = code
-    writeConfig(config)
+    userdata.set("code", code)
     # save that the user has verified
-    config = readConfig()
-    config['hasVerified'] = True
-    writeConfig(config)
+    userdata.set("hasVerified", True)
     print("verified user")
     # get access/refresh tokens and user info
     getTokens()
     print("retrieved tokens")
-    Utils.api.getUserData()
+    Utils.api.setUserData()
     print("retrieved user data")

@@ -1,6 +1,6 @@
 from blessed import Terminal
 from Components.Templates.Component import Component
-from Utils.utils import clearCache
+from Utils.utils import spotifyCache
 
 
 class ViewManager(object):
@@ -15,7 +15,7 @@ class ViewManager(object):
         self.previousMainViews = []
         self.globalShortcuts = {
             "q": self.quit,
-            "C": clearCache,
+            "C": spotifyCache.clear,
             "h": self.previousMainView,
             "KEY_ESCAPE": self.previousMainView
         }

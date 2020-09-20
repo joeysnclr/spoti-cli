@@ -5,54 +5,21 @@ import time
 import requests
 import os
 import sys
+from Utils.DataFiles import DataFile, CacheFile, ShortcutsFile
 
 
-CONFIG_DIR_PATH = os.path.abspath(os.path.expanduser("~/.config/terminal-spotify/"))
-CONFIG_FILE_PATH = os.path.join(CONFIG_DIR_PATH, "config.json")
-
-if not os.path.exists(CONFIG_DIR_PATH):
-    os.makedirs(CONFIG_DIR_PATH, exist_ok=True)
-
-
-CACHE_DIR_PATH = os.path.abspath(os.path.expanduser("~/.cache/terminal-spotify/"))
-CACHE_FILE_PATH = os.path.join(CACHE_DIR_PATH, "cache.json")
-
-if not os.path.exists(CACHE_DIR_PATH):
-    os.makedirs(CACHE_DIR_PATH, exist_ok=True)
+USERDATA_PATH = os.path.abspath(os.path.expanduser("~/.config/terminal-spotify/userdata.json"))
+SETTINGS_PATH = os.path.abspath(os.path.expanduser("~/.config/terminal-spotify/settings.json"))
+SHORTCUTS_PATH = os.path.abspath(os.path.expanduser("~/.config/terminal-spotify/shortcuts.json"))
+SPOTIFY_CACHE_PATH = os.path.abspath(os.path.expanduser("~/.cache/terminal-spotify/spotify.json"))
+GENIUS_CACHE_PATH = os.path.abspath(os.path.expanduser("~/.cache/terminal-spotify/genius.json"))
 
 
-
-def createConfig():
-    config = {'hasVerified': False}
-    open(CONFIG_FILE_PATH, 'a').close()
-    writeConfig(config)
-
-
-def readConfig():
-    if not os.path.exists(CONFIG_FILE_PATH):
-        createConfig()
-    # continous retry to read file - sometimes throws error when accessing file from main thread and child thread
-    success = False
-    while not success:
-        try:
-            with open(CONFIG_FILE_PATH, "r+") as file:
-                config = json.load(file)
-                success = True
-        except:
-            continue
-    return config
-
-
-def writeConfig(config):
-    # continous retry to write file - sometimes throws error when accessing file from main thread and child thread
-    success = False
-    while not success:
-        try:
-            with open(CONFIG_FILE_PATH, "w") as file:
-                json.dump(config, file)
-                success = True
-        except:
-            continue
+userdata = DataFile(USERDATA_PATH)
+settings = DataFile(SETTINGS_PATH)
+shortcuts = ShortcutsFile(SHORTCUTS_PATH)
+spotifyCache = CacheFile(SPOTIFY_CACHE_PATH)
+geniusCache = CacheFile(GENIUS_CACHE_PATH)
 
 
 def msFormat(ms):
@@ -60,36 +27,3 @@ def msFormat(ms):
     seconds = int((ms - (minutes * 60000)) / 1000)
     return f"{minutes}:{seconds:02}"
 
-
-def createCache():
-    cache = {}
-    open(CACHE_FILE_PATH, 'a').close()
-    writeCache(cache)
-
-
-def readCache():
-    if not os.path.exists(CACHE_FILE_PATH):
-        createCache()
-    with open(CACHE_FILE_PATH, "r+") as file:
-        cache = json.load(file)
-    return cache
-
-
-def clearCache():
-    writeCache({})
-
-
-def writeCache(cache):
-    with open(CACHE_FILE_PATH, "w") as file:
-        json.dump(cache, file)
-
-
-def endpointIsCached(endpoint):
-    cache = readCache()
-    return endpoint in cache
-
-
-def cacheResponse(endpoint, response):
-    cache = readCache()
-    cache[endpoint] = response
-    writeCache(cache)

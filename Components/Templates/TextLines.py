@@ -6,8 +6,8 @@ class TextLines(Component.Component):
 
     def __init__(self, name, lines):
         super().__init__(name)
-        self.addShortcut("n", self.nextPage)
-        self.addShortcut("N", self.prevPage)
+        self.addShortcut("nextPage", self.nextPage)
+        self.addShortcut("prevPage", self.prevPage)
         self.lines = lines
         self.currLines = []
         self.currPage = 1

@@ -5,7 +5,7 @@ class Log(Component):
 
     def __init__(self):
         super().__init__("log")
-        self.addShortcut("D", self.toggleDisplay)
+        self.addShortcut("toggleLog", self.toggleDisplay)
         self.logs = []
         self.display = False
 

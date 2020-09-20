@@ -96,10 +96,10 @@ cd into $DIR and install requirements
 - add main menu
 - organize config/cache files [ XDG ](https://specifications.freedesktop.org/basedir-spec/basedir-spec-latest.html)
 - incorporate update function to Component (keep output function strictly to getting the output)
+- keyboard shortcut config
 
 ##### In Progress
 
-- keyboard shortcut config
 
 ##### Future
 

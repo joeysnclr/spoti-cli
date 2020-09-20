@@ -29,18 +29,17 @@ class Player(Component):
 
     def __init__(self, name):
         super().__init__(name)
-        self.addShortcut(" ", self.togglePlay)
-        self.addShortcut(" ", self.togglePlay)
-        self.addShortcut("H", self.prevSong)
-        self.addShortcut("L", self.nextSong)
-        self.addShortcut("?", self.togglePlay)
-        self.addShortcut("s", self.toggleShuffle)
-        self.addShortcut("r", self.toggleRepeat)
-        self.addShortcut("i", self.showLyrics)
-        self.addShortcut("-", self.decreaseVolume)
-        self.addShortcut("+", self.increaseVolume)
+        self.addShortcut("togglePlay", self.togglePlay)
+        self.addShortcut("prevSong", self.prevSong)
+        self.addShortcut("nextSong", self.nextSong)
+        self.addShortcut("toggleShuffle", self.toggleShuffle)
+        self.addShortcut("toggleRepeat", self.toggleRepeat)
+        self.addShortcut("showLyrics", self.showLyrics)
+        self.addShortcut("decreaseVolume", self.decreaseVolume)
+        self.addShortcut("increaseVolume", self.increaseVolume)
 
         self.isLinux = platform.system() == "Linux"
+        self.playing = False
         self.playing = False
         self.shuffle = False
         self.repeat = "off"

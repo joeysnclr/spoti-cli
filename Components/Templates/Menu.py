@@ -10,8 +10,7 @@ class MenuItem(Component):
 
     def __init__(self, name):
         super().__init__(name)
-        self.addShortcut("l", self.onSelect)
-        self.addShortcut("KEY_ENTER", self.onSelect)
+        self.addShortcut("select", self.onSelect)
         self.isActive = False
 
     def update(self):
@@ -34,12 +33,12 @@ class Menu(Component):
 
     def __init__(self, name, items):
         super().__init__(name)
-        self.addShortcut("j", self.positionDown)
-        self.addShortcut("k", self.positionUp)
-        self.addShortcut("n", self.nextPage)
-        self.addShortcut("N", self.prevPage)
-        self.addShortcut("g", self.positionFirst)
-        self.addShortcut("G", self.positionLast)
+        self.addShortcut("down", self.positionDown)
+        self.addShortcut("up", self.positionUp)
+        self.addShortcut("nextPage", self.nextPage)
+        self.addShortcut("prevPage", self.prevPage)
+        self.addShortcut("firstItem", self.positionFirst)
+        self.addShortcut("lastItem", self.positionLast)
         self.items = items
         self.currItems = []
         self.position = 0
@@ -55,11 +54,11 @@ class Menu(Component):
         # set current position item to active
         self.currItems[self.position].setActive(True)
 
-    def handleShortcut(self, key):
-        super().handleShortcut(key)
+    def handleInput(self, key):
+        super().handleInput(key)
         # handle active item shortcut
         if len(self.currItems) > 0:
-            self.currItems[self.position].handleShortcut(key)
+            self.currItems[self.position].handleInput(key)
 
     def output(self, lines):
         # get outputs

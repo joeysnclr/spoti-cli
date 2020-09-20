@@ -10,7 +10,7 @@ class SongItem(MenuItem):
 
     def __init__(self, songData, contextURI=None):
         super().__init__(songData['track']['name'])
-        self.addShortcut("a", self.addToQueue)
+        self.addShortcut("addToQueue", self.addToQueue)
         self.songData = songData
         self.songURI = songData['track']['uri']
         self.contextURI = contextURI

@@ -49,7 +49,7 @@ class ViewManager(object):
                 self.globalShortcuts[key]()
             # run component specific shortcuts
             for component in self.components:
-                component.handleShortcut(key)
+                component.handleInput(key)
 
     def update(self):
         for height, component in zip(self.componentHeights, self.components):

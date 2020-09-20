@@ -1,0 +1,20 @@
+
+defaultShortcuts = {
+        "up": "k",
+        "down": "j",
+        "select": ["l", "KEY_ENTER"],
+        "firstItem": "g",
+        "lastItem": "G",
+        "nextPage": "n",
+        "prevPage": "N",
+        "togglePlay": " ",
+        "prevSong": "H",
+        "nextSong": "L",
+        "toggleShuffle": "s",
+        "toggleRepeat": "r",
+        "increaseVolume": "+",
+        "decreaseVolume": "-",
+        "addToQueue": "a",
+        "showLyrics": "i",
+        "toggleLog": "D",
+}

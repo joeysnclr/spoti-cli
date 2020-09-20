@@ -1,14 +1,15 @@
 import json
 from pathlib import Path
+from Utils.shortcuts import defaultShortcuts
 
 class DataFile(object):
 
-    def __init__(self, pathStr):
+    def __init__(self, pathStr, defaultContents={}):
         self.path = Path(pathStr)
         if not self.path.parent.exists():
             self.path.parent.mkdir(parents=True, exist_ok=True)
         if not self.path.exists():
-            self.write({})
+            self.write(defaultContents)
 
     def read(self):
 
@@ -58,7 +59,7 @@ class CacheFile(DataFile):
 class ShortcutsFile(DataFile):
 
     def __init__(self, path):
-        super().__init__(path)
+        super().__init__(path, defaultContents=defaultShortcuts)
 
     def getAction(self, inputKey):
         shortcuts = self.read()

@@ -3,6 +3,7 @@ defaultShortcuts = {
         "up": "k",
         "down": "j",
         "select": ["l", "KEY_ENTER"],
+        "prevView": ["h", "KEY_ESCAPE"],
         "firstItem": "g",
         "lastItem": "G",
         "nextPage": "n",
@@ -16,5 +17,7 @@ defaultShortcuts = {
         "decreaseVolume": "-",
         "addToQueue": "a",
         "showLyrics": "i",
+        "quit": "q",
+        "clearCache": "C",
         "toggleLog": "D",
 }

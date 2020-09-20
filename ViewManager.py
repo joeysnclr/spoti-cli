@@ -3,9 +3,10 @@ from Components.Templates.Component import Component
 from Utils.utils import spotifyCache
 
 
-class ViewManager(object):
+class ViewManager(Component):
 
     def __init__(self, term):
+        super().__init__("View Manager")
         self.term = term
         self.running = True
         self.title = None
@@ -13,12 +14,9 @@ class ViewManager(object):
         self.player = None
         self.logOutput = None
         self.previousMainViews = []
-        self.globalShortcuts = {
-            "q": self.quit,
-            "C": spotifyCache.clear,
-            "h": self.previousMainView,
-            "KEY_ESCAPE": self.previousMainView
-        }
+        self.addShortcut("quit", self.quit)
+        self.addShortcut("clearCache", spotifyCache.clear)
+        self.addShortcut("prevView", self.previousMainView)
 
     def start(self):
         with self.term.cbreak(), self.term.hidden_cursor():
@@ -33,20 +31,18 @@ class ViewManager(object):
                 self.components = [self.title, self.mainView, self.player, self.logOutput]
                 self.componentHeights = self.calcHeights()
                 # shortcuts
-                self.shortcuts(key)
+                self.keyPress(key)
                 # updating
                 self.update()
                 # rendering
                 self.render()
             print(self.term.home + self.term.clear, end='')
 
-    def shortcuts(self, key):
+    def keyPress(self, key):
         if key:
             if key.is_sequence:
                 key = key.name
-            # run global shortcuts
-            if key in self.globalShortcuts:
-                self.globalShortcuts[key]()
+            super().handleInput(key)
             # run component specific shortcuts
             for component in self.components:
                 component.handleInput(key)

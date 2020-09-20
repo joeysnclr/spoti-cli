@@ -100,10 +100,10 @@ cd into $DIR and install requirements
 
 ##### In Progress
 
+- abstract player into player and component classes
 
 ##### Future
 
-- abstract player into player and component classes
 - responsive lines
 - add lyrics caching (permanent)
 - add setting; reset cache on startup

@@ -30,7 +30,7 @@ class DataFile(object):
 
     def write(self, contents):
         with open(self.path, "w+") as file:
-            json.dump(contents, file)
+            json.dump(contents, file, indent=4)
 
     def set(self, key, value):
         contents = self.read()

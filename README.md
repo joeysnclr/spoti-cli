@@ -83,41 +83,33 @@ cd into $DIR and install requirements
 
 ##### Completed
 
-- playlist menu
-- song menu
-- Spotify controls (minimum functionality)
-- menu navigation controls (minimum functionality)
-- snazzy lookin menu bar with some nice scroll effects on too long text
-- Linux compatibility
-- add some color to menubar
-- added logging output
-- show song lyrics (Genius API)
-- add songs to queue
-- add main menu
-- organize config/cache files [ XDG ](https://specifications.freedesktop.org/basedir-spec/basedir-spec-latest.html)
-- incorporate update function to Component (keep output function strictly to getting the output)
-- keyboard shortcut config
-
 ##### In Progress
 
 - abstract player into player and component classes
 
 ##### Future
 
-- responsive lines
-- add lyrics caching (permanent)
-- add setting; reset cache on startup
-- menu searching with / (esc to exit search mode)
-- continue adding logging, create a toggle shortcut
+###### Necesarry
+
 - document architecture
 - change name
 - add package to package repos (homebrew, apt, etc...)
-- Spotify search
+- help menu
+
+###### Useful Functionality
+
+- responsive lines
+- add setting; reset cache on startup
+- menu searching with / (esc to exit search mode)
 - artist menu
 - album menu
-- audio visualizer
-- help menu
 - podcast listening functionality
+
+###### Nice To Have
+
+- add lyrics caching (permanent)
+- Spotify search
+- audio visualizer
 - change Spotify device
 - player view only mode
 - minimal ui mode [here](https://i.redd.it/mnerempmqwm51.png)

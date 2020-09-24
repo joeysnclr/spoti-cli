@@ -19,7 +19,7 @@ class ViewManager(Component):
         self.addShortcut("prevView", self.previousMainView)
 
     def start(self):
-        with self.term.cbreak(), self.term.hidden_cursor():
+        with self.term.cbreak(), self.term.hidden_cursor(), self.term.fullscreen():
             # clear the screen
             print(self.term.home + self.term.clear)
             # render loop
@@ -36,7 +36,6 @@ class ViewManager(Component):
                 self.update()
                 # rendering
                 self.render()
-            print(self.term.home + self.term.clear, end='')
 
     def keyPress(self, key):
         if key:
@@ -61,7 +60,7 @@ class ViewManager(Component):
             componentOutputs.append(output)
 
         # clear screen and output each component
-        print(self.term.home + self.term.clear_eol, end="")
+        print(self.term.home, end="")
         for output in componentOutputs:
             for line in output:
                 print(self.term.clear_eol + line)

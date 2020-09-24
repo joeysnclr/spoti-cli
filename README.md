@@ -85,12 +85,13 @@ cd into $DIR and install requirements
 
 ##### In Progress
 
-- abstract player into player and component classes
 
 ##### Future
 
 ###### Necesarry
 
+- abstract player into player and component classes
+- default settings.json
 - document architecture
 - change name
 - add package to package repos (homebrew, apt, etc...)

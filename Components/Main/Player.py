@@ -55,8 +55,6 @@ class Player(Component):
         # start thread that gets player context
         self.stopThread = False
         threading.Thread(target=self.getPlayerContext, daemon=True).start()
-        # set spotify volume to 100 on startup
-        self.changeVolume(100)
 
     def generatePlayBar(self, width):
         barWidth = width - 3

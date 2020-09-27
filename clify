@@ -1,15 +1,15 @@
 #!/usr/bin/env python3
 
-from ViewManager import viewManager
-from Components.Main.Player import player
-from Components.Main.Log import log
-from Components.Main.TitleBar import TitleBar
-from Components.Main.MainMenu import MainMenu
 from Utils.utils import spotifyCache, userdata
 from Utils.authenticate import verify, getTokens
 
 
 def startApp():
+    from ViewManager import viewManager
+    from Components.Main.Player import player
+    from Components.Main.Log import log
+    from Components.Main.TitleBar import TitleBar
+    from Components.Main.MainMenu import MainMenu
     # initialize components here so that viewManager can init
     viewManager.title = TitleBar("title")
     viewManager.setMainView(MainMenu())

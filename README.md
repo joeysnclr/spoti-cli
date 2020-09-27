@@ -83,7 +83,6 @@ cd into $DIR and install requirements
 
 ##### Necesarry
 
-- abstract player into player and component classes
 - default settings.json
 - document architecture
 - change name

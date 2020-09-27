@@ -81,14 +81,7 @@ cd into $DIR and install requirements
 
 ### To Do
 
-##### Completed
-
-##### In Progress
-
-
-##### Future
-
-###### Necesarry
+##### Necesarry
 
 - abstract player into player and component classes
 - default settings.json
@@ -97,7 +90,7 @@ cd into $DIR and install requirements
 - add package to package repos (homebrew, apt, etc...)
 - help menu
 
-###### Useful Functionality
+##### Useful Functionality
 
 - responsive lines
 - add setting; reset cache on startup
@@ -106,7 +99,7 @@ cd into $DIR and install requirements
 - album menu
 - podcast listening functionality
 
-###### Nice To Have
+##### Nice To Have
 
 - add lyrics caching (permanent)
 - Spotify search

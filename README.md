@@ -1,11 +1,11 @@
-# Terminal Spotify
+# Spoti-CLI
 
 
-![Terminal Spotify Preview](https://raw.githubusercontent.com/joeysnclr/terminal-spotify/master/screenshot.png)
+![Spoti-CLI Preview](https://raw.githubusercontent.com/joeysnclr/terminal-spotify/master/screenshot.png)
 
 ### Intro
 
-Terminal Spotify (subject to name change) is a TUI (terminal user interface)
+Spoti-CLI (subject to name change) is a command line TUI (terminal user interface)
 client for Spotify. Designed with efficiency in mind, Terminal Spotify uses Vim
 based keybindings for navigating and controlling the application.
 
@@ -29,7 +29,7 @@ add directory to path (in .bashrc or .zshrc)
 
 make `clify` file executable
 
-`chmod +x $DIR/clify`
+`chmod +x $DIR/spoti-cli`
 
 
 cd into $DIR and install requirements
@@ -44,9 +44,9 @@ cd into $DIR and install requirements
 
 `rm -rf $DIR`
 
-`rm -rf ~/.config/terminal-spotify`
+`rm -rf ~/.config/spoti-cli`
 
-`rm -rf ~/.cache/terminal-spotify` (this should be changed)
+`rm -rf ~/.cache/spoti-cli`
 
 
 ### Shortcuts
@@ -83,7 +83,6 @@ cd into $DIR and install requirements
 
 ##### Necesarry
 
-- default settings.json
 - document architecture
 - change name
 - add package to package repos (homebrew, apt, etc...)

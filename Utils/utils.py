@@ -10,11 +10,11 @@ from Utils.settings import defaultSettings
 from Utils.shortcuts import defaultShortcuts
 
 
-USERDATA_PATH = os.path.abspath(os.path.expanduser("~/.config/terminal-spotify/userdata.json"))
-SETTINGS_PATH = os.path.abspath(os.path.expanduser("~/.config/terminal-spotify/settings.json"))
-SHORTCUTS_PATH = os.path.abspath(os.path.expanduser("~/.config/terminal-spotify/shortcuts.json"))
-SPOTIFY_CACHE_PATH = os.path.abspath(os.path.expanduser("~/.cache/terminal-spotify/spotify.json"))
-GENIUS_CACHE_PATH = os.path.abspath(os.path.expanduser("~/.cache/terminal-spotify/genius.json"))
+USERDATA_PATH = os.path.abspath(os.path.expanduser("~/.config/spoti-cli/userdata.json"))
+SETTINGS_PATH = os.path.abspath(os.path.expanduser("~/.config/spoti-cli/settings.json"))
+SHORTCUTS_PATH = os.path.abspath(os.path.expanduser("~/.config/spoti-cli/shortcuts.json"))
+SPOTIFY_CACHE_PATH = os.path.abspath(os.path.expanduser("~/.cache/spoti-cli/spotify.json"))
+GENIUS_CACHE_PATH = os.path.abspath(os.path.expanduser("~/.cache/spoti-cli/genius.json"))
 
 
 userdata = DataFile(USERDATA_PATH)

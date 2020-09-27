@@ -6,6 +6,8 @@ import requests
 import os
 import sys
 from Utils.DataFiles import DataFile, CacheFile, ShortcutsFile
+from Utils.settings import defaultSettings
+from Utils.shortcuts import defaultShortcuts
 
 
 USERDATA_PATH = os.path.abspath(os.path.expanduser("~/.config/terminal-spotify/userdata.json"))
@@ -16,8 +18,8 @@ GENIUS_CACHE_PATH = os.path.abspath(os.path.expanduser("~/.cache/terminal-spotif
 
 
 userdata = DataFile(USERDATA_PATH)
-settings = DataFile(SETTINGS_PATH)
-shortcuts = ShortcutsFile(SHORTCUTS_PATH)
+settings = DataFile(SETTINGS_PATH, defaultSettings)
+shortcuts = ShortcutsFile(SHORTCUTS_PATH, defaultShortcuts)
 spotifyCache = CacheFile(SPOTIFY_CACHE_PATH)
 geniusCache = CacheFile(GENIUS_CACHE_PATH)
 

@@ -1,6 +1,5 @@
 import json
 from pathlib import Path
-from Utils.shortcuts import defaultShortcuts
 
 class DataFile(object):
 
@@ -45,8 +44,8 @@ class DataFile(object):
 
 class CacheFile(DataFile):
 
-    def __init__(self, path):
-        super().__init__(path)
+    def __init__(self, path, defaultContents={}):
+        super().__init__(path, defaultContents)
 
     def isCached(self, key):
         contents = self.read()
@@ -58,8 +57,8 @@ class CacheFile(DataFile):
 
 class ShortcutsFile(DataFile):
 
-    def __init__(self, path):
-        super().__init__(path, defaultContents=defaultShortcuts)
+    def __init__(self, path, defaultContents={}):
+        super().__init__(path, defaultContents)
 
     def getAction(self, inputKey):
         shortcuts = self.read()

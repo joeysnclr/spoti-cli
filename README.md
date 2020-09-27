@@ -108,6 +108,10 @@ cd into $DIR and install requirements
 - player view only mode
 - minimal ui mode [here](https://i.redd.it/mnerempmqwm51.png)
 
+### Known Bugs
+
+- linux, can't play song in context
+
 
 ### Contributing
 

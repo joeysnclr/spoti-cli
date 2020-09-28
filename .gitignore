@@ -1,4 +1,6 @@
 /dist
+/build
+spoti_cli.egg-info
 .vim/
 __pycache__
 */__pycache__

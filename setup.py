@@ -25,7 +25,7 @@ setup(
     ],
     packages=find_packages(exclude=("tests",)),
     include_package_data=True,
-    install_requires=["beautifulsoup4", "blessed", "Flask", "requests"],
+    install_requires=["wheel", "beautifulsoup4", "blessed", "Flask", "requests"],
     entry_points={
         "console_scripts": [
             "spoticli=spoticli.__main__:main",

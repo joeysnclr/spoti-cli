@@ -1,4 +1,4 @@
-from ViewManager import viewManager
+from Components.Main.ViewManager import viewManager
 from Components.Main.Player import player
 from Components.Main.Log import log
 from Components.Main.TitleBar import TitleBar

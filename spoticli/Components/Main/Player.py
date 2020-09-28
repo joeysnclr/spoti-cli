@@ -2,7 +2,7 @@ import os
 import platform
 import time
 import threading
-from ViewManager import viewManager
+from Components.Main.ViewManager import viewManager
 from Utils.utils import msFormat
 from Utils.api import spotifyGetAPI, spotifyPutAPI, spotifyPostAPI
 from Components.Templates.Component import Component

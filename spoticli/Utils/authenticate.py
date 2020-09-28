@@ -86,5 +86,5 @@ def verify():
     # get access/refresh tokens and user info
     getTokens()
     print("retrieved tokens")
-    Utils.api.setUserData()
+    spoticli.Utils.api.setUserData()
     print("retrieved user data")

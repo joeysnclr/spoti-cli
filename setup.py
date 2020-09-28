@@ -28,7 +28,7 @@ setup(
     install_requires=["beautifulsoup4", "blessed", "Flask", "requests"],
     entry_points={
         "console_scripts": [
-            "spoti-cli=spoti-cli.__main__.py",
+            "spoti-cli=spoti-cli:__main__.py",
         ]
     },
 ) 

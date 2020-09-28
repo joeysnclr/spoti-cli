@@ -3,7 +3,7 @@ import json
 import os
 import logging
 import requests
-from Utils.utils import userdata
+from spoticli.Utils.utils import userdata
 
 # create flask app
 app = Flask(__name__)

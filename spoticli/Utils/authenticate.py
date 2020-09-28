@@ -2,9 +2,9 @@ import time
 import webbrowser
 import threading
 import requests
-from Utils.utils import userdata
-from Utils.server import runServer
-import Utils.api
+from spoticli.Utils.utils import userdata
+from spoticli.Utils.server import runServer
+import spoticli.Utils.api
 
 
 

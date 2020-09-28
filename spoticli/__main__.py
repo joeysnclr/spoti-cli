@@ -1,10 +1,10 @@
-from Components.Main.ViewManager import viewManager
-from Components.Main.Player import player
-from Components.Main.Log import log
-from Components.Main.TitleBar import TitleBar
-from Components.Main.MainMenu import MainMenu
-from Utils.utils import spotifyCache, userdata
-from Utils.authenticate import verify, getTokens
+from spoticli.Components.Main.ViewManager import viewManager
+from spoticli.Components.Main.Player import player
+from spoticli.Components.Main.Log import log
+from spoticli.Components.Main.TitleBar import TitleBar
+from spoticli.Components.Main.MainMenu import MainMenu
+from spoticli.Utils.utils import spotifyCache, userdata
+from spoticli.Utils.authenticate import verify, getTokens
 
 
 def startApp():

@@ -1,4 +1,4 @@
-from Components.Templates.Component import Component
+from spoticli.Components.Templates.Component import Component
 
 
 class Log(Component):

@@ -1,4 +1,4 @@
-from Utils.utils import shortcuts
+from spoticli.Utils.utils import shortcuts
 
 class Component(object):
 

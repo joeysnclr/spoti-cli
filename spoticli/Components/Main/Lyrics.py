@@ -1,5 +1,5 @@
-from Components.Templates.TextLines import TextLines
-from Utils.lyrics import getLyrics
+from spoticli.Components.Templates.TextLines import TextLines
+from spoticli.Utils.lyrics import getLyrics
 
 
 class Lyrics(TextLines):

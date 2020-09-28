@@ -1,6 +1,6 @@
-from Components.Main.ViewManager import viewManager
-from Components.Templates.Menu import Menu, MenuItem
-from Components.Main.PlaylistMenu import PlaylistMenu
+from spoticli.Components.Main.ViewManager import viewManager
+from spoticli.Components.Templates.Menu import Menu, MenuItem
+from spoticli.Components.Main.PlaylistMenu import PlaylistMenu
 
 class MainMenuItem(MenuItem):
 

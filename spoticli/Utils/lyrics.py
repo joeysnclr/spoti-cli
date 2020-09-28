@@ -1,6 +1,6 @@
 import requests
 from bs4 import BeautifulSoup
-from Utils.utils import userdata
+from spoticli.Utils.utils import userdata
 
 
 def getLyrics(song, artist):

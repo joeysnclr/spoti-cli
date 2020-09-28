@@ -1,5 +1,5 @@
 import math
-import Components.Templates.Component as Component
+import spoticli.Components.Templates.Component as Component
 
 
 class TextLines(Component.Component):

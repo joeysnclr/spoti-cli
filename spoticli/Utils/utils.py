@@ -5,9 +5,9 @@ import time
 import requests
 import os
 import sys
-from Utils.DataFiles import DataFile, CacheFile, ShortcutsFile
-from Utils.settings import defaultSettings
-from Utils.shortcuts import defaultShortcuts
+from spoticli.Utils.DataFiles import DataFile, CacheFile, ShortcutsFile
+from spoticli.Utils.settings import defaultSettings
+from spoticli.Utils.shortcuts import defaultShortcuts
 
 
 USERDATA_PATH = os.path.abspath(os.path.expanduser("~/.config/spoti-cli/userdata.json"))

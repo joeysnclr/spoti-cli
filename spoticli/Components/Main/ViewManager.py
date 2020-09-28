@@ -1,7 +1,7 @@
 from blessed import Terminal
-from Components.Templates.Component import Component
-from Components.Main.HelpMenu import HelpMenu
-from Utils.utils import spotifyCache
+from spoticli.Components.Templates.Component import Component
+from spoticli.Components.Main.HelpMenu import HelpMenu
+from spoticli.Utils.utils import spotifyCache
 
 
 class ViewManager(Component):

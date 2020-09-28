@@ -1,7 +1,7 @@
 import time
 import requests
-from Utils.utils import userdata, spotifyCache
-from Utils.authenticate import getTokens
+from spoticli.Utils.utils import userdata, spotifyCache
+from spoticli.Utils.authenticate import getTokens
 
 def setUserData():
     user = spotifyGetAPI("/me/")

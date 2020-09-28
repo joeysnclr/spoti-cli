@@ -1,5 +1,5 @@
-from Components.Main.ViewManager import viewManager
-from Components.Templates.Component import Component
+from spoticli.Components.Main.ViewManager import viewManager
+from spoticli.Components.Templates.Component import Component
 
 
 class TitleBar(Component):

@@ -17,8 +17,7 @@ def startApp():
     viewManager.logOutput = log
     viewManager.start()
 
-
-if __name__ == "__main__":
+def main():
     # clears cache from last session
     spotifyCache.clear()
 
@@ -30,3 +29,6 @@ if __name__ == "__main__":
     # start view manager
     startApp()
     quit()
+
+if __name__ == "__main__":
+    main()

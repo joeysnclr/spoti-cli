@@ -15,39 +15,11 @@ based keybindings for navigating and controlling the application.
 - Spotify Premium
 - Spotify Developer Application
 
-### Installation From Source
+### Install & Usage
 
-clone the repository to any directory ($DIR)
+`pip3 install spoti-cli`
 
-`git clone https://github.com/joeysnclr/terminal-spotify.git $DIR`
-
-
-add directory to path (in .bashrc or .zshrc)
-
-`export PATH=$PATH:$DIR`
-
-
-make `clify` file executable
-
-`chmod +x $DIR/spoti-cli`
-
-
-cd into $DIR and install requirements
-
-`cd $DIR`
-
-`pip3 install -r requirements.txt`
-
-
-
-### Uninstall Source and Config/Cache Files
-
-`rm -rf $DIR`
-
-`rm -rf ~/.config/spoti-cli`
-
-`rm -rf ~/.cache/spoti-cli`
-
+`spoticli`
 
 ### Shortcuts
 

@@ -1,5 +1,3 @@
-#!/usr/bin/env python3
-
 from ViewManager import viewManager
 from Components.Main.Player import player
 from Components.Main.Log import log

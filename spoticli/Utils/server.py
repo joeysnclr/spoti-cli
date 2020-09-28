@@ -3,7 +3,7 @@ import json
 import os
 import logging
 import requests
-from Utils.utils import readConfig, writeConfig
+from spoticli.Utils.utils import userdata
 
 # create flask app
 app = Flask(__name__)
@@ -22,11 +22,8 @@ def hello_world():
         return "error! try again please"
     code = request.args.get("code")
 
-    config = readConfig()
-    config['code'] = code
-    writeConfig(config)
-
-    return "enjoy clify!"
+    userdata.set("code", code)
+    return "success!"
 
 
 @app.route('/shutdown')

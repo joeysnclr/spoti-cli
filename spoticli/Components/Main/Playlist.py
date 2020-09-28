@@ -1,6 +1,6 @@
-from Components.Templates.Menu import Menu
-from Components.Main.SongItem import SongItem
-from Utils.api import spotifyGetAPI
+from spoticli.Components.Templates.Menu import Menu
+from spoticli.Components.Main.SongItem import SongItem
+from spoticli.Utils.api import spotifyGetAPI
 
 class Playlist(Menu):
 

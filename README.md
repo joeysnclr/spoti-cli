@@ -1,11 +1,11 @@
-# Terminal Spotify
+# Spoti-CLI
 
 
-![Terminal Spotify Preview](https://raw.githubusercontent.com/joeysnclr/terminal-spotify/master/screenshot.png)
+![Spoti-CLI Preview](https://raw.githubusercontent.com/joeysnclr/terminal-spotify/master/screenshot.png)
 
 ### Intro
 
-Terminal Spotify (subject to name change) is a TUI (terminal user interface)
+Spoti-CLI (subject to name change) is a command line TUI (terminal user interface)
 client for Spotify. Designed with efficiency in mind, Terminal Spotify uses Vim
 based keybindings for navigating and controlling the application.
 
@@ -15,39 +15,11 @@ based keybindings for navigating and controlling the application.
 - Spotify Premium
 - Spotify Developer Application
 
-### Installation From Source
+### Install & Usage
 
-clone the repository to any directory ($DIR)
+`pip3 install spoti-cli`
 
-`git clone https://github.com/joeysnclr/terminal-spotify.git $DIR`
-
-
-add directory to path (in .bashrc or .zshrc)
-
-`export PATH=$PATH:$DIR`
-
-
-make `clify` file executable
-
-`chmod +x $DIR/clify`
-
-
-cd into $DIR and install requirements
-
-`cd $DIR`
-
-`pip3 install -r requirements.txt`
-
-
-
-### Uninstall Source and Config/Cache Files
-
-`rm -rf $DIR`
-
-`rm ~./terminal-spotify.json`
-
-`rm ~./terminal-spotify-cache.json` (this should be changed)
-
+`spoticli`
 
 ### Shortcuts
 
@@ -74,52 +46,40 @@ cd into $DIR and install requirements
 - i: show lyrics
 
 
-##### Development
+##### Development/Utils
 
+- ?: help menu
 - C: clear cache
 - D: toggle logging display
 
-### Features/To Do
+### To Do
 
-##### To Do List
+##### Necesarry
 
-- move cache file
-- document architecture
-- change name
 - add package to package repos (homebrew, apt, etc...)
-- organize config/cache/shortcuts files [ XDG ](https://specifications.freedesktop.org/basedir-spec/basedir-spec-latest.html)
 
+##### Useful Functionality
 
-##### Completed features
-
-- playlist menu
-- song menu
-- Spotify controls (minimum functionality)
-- menu navigation controls (minimum functionality)
-- snazzy lookin menu bar with some nice scroll effects on too long text
-- Linux compatibility
-- add some color to menubar
-- added logging output
-- show song lyrics (Genius API)
-- add songs to queue
-- add main menu
-
-##### In Progress Features
-
-- add lyrics caching (permanent)
+- responsive lines
+- add setting; reset cache on startup
 - menu searching with / (esc to exit search mode)
-- keyboard shortcut config
-- continue adding logging, create a toggle shortcut
-
-##### Future Features
-
-- Spotify search
 - artist menu
 - album menu
-- audio visualizer
-- help menu
 - podcast listening functionality
+
+##### Nice To Have
+
+- add lyrics caching (permanent)
+- Spotify search
+- audio visualizer
 - change Spotify device
+- player view only mode
+- minimal ui mode [here](https://i.redd.it/mnerempmqwm51.png)
+- centered lyrics/help menu
+
+### Known Bugs
+
+- linux, can't play song in context
 
 
 ### Contributing

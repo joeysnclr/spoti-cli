@@ -1,25 +1,22 @@
 import time
 import requests
-from Utils.utils import readConfig, writeConfig, readCache, writeCache, endpointIsCached, cacheResponse
-from Utils.authenticate import getTokens
+from spoticli.Utils.utils import userdata, spotifyCache
+from spoticli.Utils.authenticate import getTokens
 
-def getUserData():
-    config = readConfig()
+def setUserData():
     user = spotifyGetAPI("/me/")
-    config['userId'] = user['id']
-    writeConfig(config)
+    userdata.set("userId", user['id'])
 
 def spotifyGetAPI(endpoint, cache=False, paged=False):
     if cache:
-        if endpointIsCached(endpoint):
-            return readCache()[endpoint]
+        if spotifyCache.isCached(endpoint):
+            return spotifyCache.get(endpoint)
 
     url = "https://api.spotify.com/v1" + endpoint
     output = []
     success = False
     while not success:
-        config = readConfig()
-        headers = {"Authorization": "Bearer " + config["access_token"]}
+        headers = {"Authorization": "Bearer " + userdata.get("access_token")}
         try:
             response = requests.get(url, headers=headers)
         except:
@@ -44,17 +41,15 @@ def spotifyGetAPI(endpoint, cache=False, paged=False):
         else:
             getTokens()
     if cache:
-        cacheResponse(endpoint, output)
-
+        spotifyCache.set(endpoint, output)
     return output
 
 
 def spotifyPostAPI(endpoint, payload):
     success = False
     while not success:
-        config = readConfig()
         url = "https://api.spotify.com/v1" + endpoint
-        headers = {"Authorization": "Bearer " + config["access_token"]}
+        headers = {"Authorization": "Bearer " + userdata.get("access_token")}
         try:
             response = requests.post(url, data=payload, headers=headers)
         except Exception as e:
@@ -73,9 +68,8 @@ def spotifyPostAPI(endpoint, payload):
 def spotifyPutAPI(endpoint):
     success = False
     while not success:
-        config = readConfig()
         url = "https://api.spotify.com/v1" + endpoint
-        headers = {"Authorization": "Bearer " + config["access_token"]}
+        headers = {"Authorization": "Bearer " + userdata.get("access_token")}
         try:
             response = requests.put(url, headers=headers)
         except Exception as e:

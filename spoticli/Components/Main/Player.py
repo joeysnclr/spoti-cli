@@ -2,12 +2,12 @@ import os
 import platform
 import time
 import threading
-from ViewManager import viewManager
-from Utils.utils import msFormat
-from Utils.api import spotifyGetAPI, spotifyPutAPI, spotifyPostAPI
-from Components.Templates.Component import Component
-from Components.Main.Lyrics import Lyrics
-from Components.Main.Log import log
+from spoticli.Components.Main.ViewManager import viewManager
+from spoticli.Utils.utils import msFormat
+from spoticli.Utils.api import spotifyGetAPI, spotifyPutAPI, spotifyPostAPI
+from spoticli.Components.Templates.Component import Component
+from spoticli.Components.Main.Lyrics import Lyrics
+from spoticli.Components.Main.Log import log
 
 term = viewManager.term
 
@@ -29,18 +29,17 @@ class Player(Component):
 
     def __init__(self, name):
         super().__init__(name)
-        self.addShortcut(" ", self.togglePlay)
-        self.addShortcut(" ", self.togglePlay)
-        self.addShortcut("H", self.prevSong)
-        self.addShortcut("L", self.nextSong)
-        self.addShortcut("?", self.togglePlay)
-        self.addShortcut("s", self.toggleShuffle)
-        self.addShortcut("r", self.toggleRepeat)
-        self.addShortcut("i", self.showLyrics)
-        self.addShortcut("-", self.decreaseVolume)
-        self.addShortcut("+", self.increaseVolume)
+        self.addShortcut("togglePlay", self.togglePlay)
+        self.addShortcut("prevSong", self.prevSong)
+        self.addShortcut("nextSong", self.nextSong)
+        self.addShortcut("toggleShuffle", self.toggleShuffle)
+        self.addShortcut("toggleRepeat", self.toggleRepeat)
+        self.addShortcut("showLyrics", self.showLyrics)
+        self.addShortcut("decreaseVolume", self.decreaseVolume)
+        self.addShortcut("increaseVolume", self.increaseVolume)
 
         self.isLinux = platform.system() == "Linux"
+        self.playing = False
         self.playing = False
         self.shuffle = False
         self.repeat = "off"
@@ -56,19 +55,18 @@ class Player(Component):
         # start thread that gets player context
         self.stopThread = False
         threading.Thread(target=self.getPlayerContext, daemon=True).start()
-        # set spotify volume to 100 on startup
-        self.changeVolume(100)
 
     def generatePlayBar(self, width):
-        barWidth = width - 3
+        barWidth = width
         barPercent = self.currentTime / self.currentTotalTime
         barChars = int(barPercent * barWidth)
-        bar = "["
+        bar = f"{term.green}"
         for i in range(barChars):
             bar += u'\u2588'
+        bar += term.bright_black
         for i in range(barWidth - barChars):
-            bar += " "
-        bar += "]"
+            bar += "\u2588"
+        bar += f"{term.normal}"
         return bar
 
     def generatePlayingSymbolAndColor(self):
@@ -84,13 +82,12 @@ class Player(Component):
 
     def output(self, lines):
         width = viewManager.term.width
-        width = width - 2
 
         songInfo = f"{self.currentSong} - {self.currentArtist}"
 
         playingSymbol = self.generatePlayingSymbolAndColor()
         playingStatus = self.generatePlayingStatus()
-        playBar = self.generatePlayBar(width - len(playingStatus))
+        playBar = self.generatePlayBar(width)
 
         shuffled = "On" if self.shuffle else "Off"
         repeatSymbols = {
@@ -100,12 +97,11 @@ class Player(Component):
         }
         repeat = self.repeat
         volume = self.volume
-        playerSettings = f"Shuffle: {shuffled}   Repeat: {repeatSymbols[repeat]}    Volume: {volume}%"
+        playerSettings = f"{playingSymbol[1]}{playingSymbol[0]} {term.normal}{playingStatus} Shuffle: {shuffled}   Repeat: {repeatSymbols[repeat]}    Volume: {volume}%"
 
         outputLines = [
-            "",
+            f"{playBar}",
             term.blue + songInfo,
-            f"{playingSymbol[1]}{playingSymbol[0]} {term.normal}{playingStatus} {term.green}{playBar}{term.normal}",
             playerSettings
         ]
         return outputLines

@@ -1,5 +1,5 @@
-from ViewManager import viewManager
-from Components.Templates.Component import Component
+from spoticli.Components.Main.ViewManager import viewManager
+from spoticli.Components.Templates.Component import Component
 
 
 class TitleBar(Component):
@@ -14,8 +14,5 @@ class TitleBar(Component):
         title = mainViewName
         if hasattr(mainView, "pages"):
             title += f" {mainView.currPage}/{mainView.pages}"
-
         outputLines.append(title)
-        for i in range(lines - 1):
-            outputLines.append("")
         return outputLines

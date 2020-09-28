@@ -1,14 +1,13 @@
 import requests
 from bs4 import BeautifulSoup
-from Utils.utils import readConfig
+from spoticli.Utils.utils import userdata
 
 
 def getLyrics(song, artist):
-    config = readConfig()
-    if 'geniusToken' not in config:
+    if 'geniusToken' not in userdata.read():
         return ["Could not find Genius API access token"]
     url = 'https://api.genius.com/search'
-    headers = {'Authorization': 'Bearer ' + config['geniusToken']}
+    headers = {'Authorization': 'Bearer ' + userdata.get("geniusToken")}
     data = {'q': song + ' ' + artist}
     response = requests.get(url, data=data, headers=headers)
     json = response.json()

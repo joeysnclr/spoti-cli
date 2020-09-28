@@ -1,8 +1,8 @@
-from ViewManager import viewManager
-from Components.Templates.Component import Component
-from Components.Templates.Menu import MenuItem
-from Components.Main.Player import player
-from Utils.utils import msFormat
+from spoticli.Components.Main.ViewManager import viewManager
+from spoticli.Components.Templates.Component import Component
+from spoticli.Components.Templates.Menu import MenuItem
+from spoticli.Components.Main.Player import player
+from spoticli.Utils.utils import msFormat
 
 term = viewManager.term
 
@@ -10,7 +10,7 @@ class SongItem(MenuItem):
 
     def __init__(self, songData, contextURI=None):
         super().__init__(songData['track']['name'])
-        self.addShortcut("a", self.addToQueue)
+        self.addShortcut("addToQueue", self.addToQueue)
         self.songData = songData
         self.songURI = songData['track']['uri']
         self.contextURI = contextURI

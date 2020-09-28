@@ -1,7 +1,7 @@
-from Utils.api import spotifyGetAPI
-from ViewManager import viewManager
-from Components.Templates.Menu import Menu, MenuItem
-from Components.Main.Playlist import Playlist
+from spoticli.Utils.api import spotifyGetAPI
+from spoticli.Components.Main.ViewManager import viewManager
+from spoticli.Components.Templates.Menu import Menu, MenuItem
+from spoticli.Components.Main.Playlist import Playlist
 
 class PlaylistItem(MenuItem):
 

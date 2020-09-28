@@ -1,19 +1,19 @@
 import math
-import Components.Templates.Component as Component
+import spoticli.Components.Templates.Component as Component
 
 
 class TextLines(Component.Component):
 
     def __init__(self, name, lines):
         super().__init__(name)
-        self.addShortcut("n", self.nextPage)
-        self.addShortcut("N", self.prevPage)
+        self.addShortcut("nextPage", self.nextPage)
+        self.addShortcut("prevPage", self.prevPage)
         self.lines = lines
         self.currLines = []
         self.currPage = 1
 
     def initPaging(self, lines):
-        self.perPage = lines
+        self.perPage = lines - 1
         self.pages = math.ceil(len(self.lines) / self.perPage)
         if self.currPage > self.pages or self.currPage < 1:
             self.currPage = 1
@@ -25,8 +25,6 @@ class TextLines(Component.Component):
     def output(self, lines):
         self.initPaging(lines)
         outputLines = self.currLines
-        while len(outputLines) < lines:
-            outputLines.append("")
         return outputLines
 
     def changePage(self, n):

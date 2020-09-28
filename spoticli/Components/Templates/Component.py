@@ -1,3 +1,4 @@
+from spoticli.Utils.utils import shortcuts
 
 class Component(object):
 
@@ -5,7 +6,7 @@ class Component(object):
         self.name = name
         self.shortcuts = {}
 
-    def update(self):
+    def update(self, lines):
         pass
 
     def output(self, lines):
@@ -17,6 +18,7 @@ class Component(object):
     def addShortcut(self, key, function):
         self.shortcuts[key] = function
 
-    def handleShortcut(self, key):
-        if key in self.shortcuts:
-            self.shortcuts[key]()
+    def handleInput(self, key):
+        action = shortcuts.getAction(key)
+        if action in self.shortcuts:
+            self.shortcuts[action]()

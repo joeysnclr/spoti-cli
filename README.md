@@ -21,6 +21,8 @@ based keybindings for navigating and controlling the application.
 
 `spoticli`
 
+`follow instructions to setup a Spotify API App, enter API tokens, enjoy`
+
 ### Shortcuts
 
 ##### Navigation
@@ -56,15 +58,18 @@ based keybindings for navigating and controlling the application.
 
 ##### Necesarry
 
-- add package to package repos (homebrew, apt, etc...)
+- documentation for lyrics with genius
+- handle logging for needing Spotify App open
+- change pip name to spoticli
 
 ##### Useful Functionality
 
-- responsive lines
+- responsive lines, scrolling text for curr song title, show diff info for small -> large widths, cut lines off if too long (use blessed trim)
 - add setting; reset cache on startup
 - menu searching with / (esc to exit search mode)
 - artist menu
 - album menu
+- playlist menu, more info, full line
 - podcast listening functionality
 
 ##### Nice To Have
@@ -76,6 +81,8 @@ based keybindings for navigating and controlling the application.
 - player view only mode
 - minimal ui mode [here](https://i.redd.it/mnerempmqwm51.png)
 - centered lyrics/help menu
+- move page nums to align right
+- add nerdfont compatibility
 
 ### Known Bugs
 

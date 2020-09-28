@@ -5,10 +5,17 @@ class DataFile(object):
 
     def __init__(self, pathStr, defaultContents={}):
         self.path = Path(pathStr)
+        # create file
         if not self.path.parent.exists():
             self.path.parent.mkdir(parents=True, exist_ok=True)
         if not self.path.exists():
             self.write(defaultContents)
+        # update contents if new defaut values have been added
+        currContents = self.read()
+        for key in defaultContents:
+            if key not in currContents:
+                currContents[key] = defaultContents[key]
+        self.write(currContents)
 
     def read(self):
 

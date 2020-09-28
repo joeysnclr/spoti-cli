@@ -74,8 +74,9 @@ cd into $DIR and install requirements
 - i: show lyrics
 
 
-##### Development
+##### Development/Utils
 
+- ?: help menu
 - C: clear cache
 - D: toggle logging display
 
@@ -83,10 +84,7 @@ cd into $DIR and install requirements
 
 ##### Necesarry
 
-- document architecture
-- change name
 - add package to package repos (homebrew, apt, etc...)
-- help menu
 
 ##### Useful Functionality
 
@@ -105,6 +103,7 @@ cd into $DIR and install requirements
 - change Spotify device
 - player view only mode
 - minimal ui mode [here](https://i.redd.it/mnerempmqwm51.png)
+- centered lyrics/help menu
 
 ### Known Bugs
 

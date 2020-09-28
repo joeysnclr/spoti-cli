@@ -18,6 +18,7 @@ defaultShortcuts = {
         "addToQueue": "a",
         "showLyrics": "i",
         "quit": "q",
+        "helpMenu": "?",
         "clearCache": "C",
         "toggleLog": "D",
 }

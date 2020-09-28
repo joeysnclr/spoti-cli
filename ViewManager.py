@@ -1,5 +1,6 @@
 from blessed import Terminal
 from Components.Templates.Component import Component
+from Components.Main.HelpMenu import HelpMenu
 from Utils.utils import spotifyCache
 
 
@@ -17,6 +18,7 @@ class ViewManager(Component):
         self.addShortcut("quit", self.quit)
         self.addShortcut("clearCache", spotifyCache.clear)
         self.addShortcut("prevView", self.previousMainView)
+        self.addShortcut("helpMenu", self.showHelpMenu)
 
     def start(self):
         with self.term.cbreak(), self.term.hidden_cursor(), self.term.fullscreen():
@@ -83,6 +85,10 @@ class ViewManager(Component):
     def previousMainView(self):
         if len(self.previousMainViews) > 0:
             self.mainView = self.previousMainViews.pop()
+
+    def showHelpMenu(self):
+        helpMenu = HelpMenu()
+        self.setMainView(helpMenu)
 
     def quit(self):
         self.running = False

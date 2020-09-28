@@ -13,7 +13,7 @@ class TextLines(Component.Component):
         self.currPage = 1
 
     def initPaging(self, lines):
-        self.perPage = lines
+        self.perPage = lines - 1
         self.pages = math.ceil(len(self.lines) / self.perPage)
         if self.currPage > self.pages or self.currPage < 1:
             self.currPage = 1

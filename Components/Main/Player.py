@@ -57,15 +57,16 @@ class Player(Component):
         threading.Thread(target=self.getPlayerContext, daemon=True).start()
 
     def generatePlayBar(self, width):
-        barWidth = width - 3
+        barWidth = width - 2
         barPercent = self.currentTime / self.currentTotalTime
         barChars = int(barPercent * barWidth)
-        bar = "["
+        bar = f"{term.green}"
         for i in range(barChars):
             bar += u'\u2588'
+        bar += term.bright_black
         for i in range(barWidth - barChars):
-            bar += " "
-        bar += "]"
+            bar += "\u2588"
+        bar += f"{term.normal}"
         return bar
 
     def generatePlayingSymbolAndColor(self):
@@ -87,7 +88,7 @@ class Player(Component):
 
         playingSymbol = self.generatePlayingSymbolAndColor()
         playingStatus = self.generatePlayingStatus()
-        playBar = self.generatePlayBar(width - len(playingStatus))
+        playBar = self.generatePlayBar(width)
 
         shuffled = "On" if self.shuffle else "Off"
         repeatSymbols = {
@@ -97,11 +98,11 @@ class Player(Component):
         }
         repeat = self.repeat
         volume = self.volume
-        playerSettings = f"Shuffle: {shuffled}   Repeat: {repeatSymbols[repeat]}    Volume: {volume}%"
+        playerSettings = f"{playingSymbol[1]}{playingSymbol[0]} {term.normal}{playingStatus} Shuffle: {shuffled}   Repeat: {repeatSymbols[repeat]}    Volume: {volume}%"
 
         outputLines = [
+            f"{playBar}",
             term.blue + songInfo,
-            f"{playingSymbol[1]}{playingSymbol[0]} {term.normal}{playingStatus} {term.green}{playBar}{term.normal}",
             playerSettings
         ]
         return outputLines

@@ -57,7 +57,7 @@ class Player(Component):
         threading.Thread(target=self.getPlayerContext, daemon=True).start()
 
     def generatePlayBar(self, width):
-        barWidth = width - 2
+        barWidth = width
         barPercent = self.currentTime / self.currentTotalTime
         barChars = int(barPercent * barWidth)
         bar = f"{term.green}"
@@ -82,7 +82,6 @@ class Player(Component):
 
     def output(self, lines):
         width = viewManager.term.width
-        width = width - 2
 
         songInfo = f"{self.currentSong} - {self.currentArtist}"
 

@@ -1,6 +1,5 @@
 import pathlib
 from setuptools import setup, find_packages
-from spoti-cli.__init__ import __version__
 
 # The directory containing this file
 HERE = pathlib.Path(__file__).parent
@@ -11,7 +10,7 @@ README = (HERE / "README.md").read_text()
 # This call to setup() does all the work
 setup(
     name="spoti-cli",
-    version=__version__,
+    version="0.0.1",
     description="Terminal based Spotify client designed to use Vim keybindings.",
     long_description=README,
     long_description_content_type="text/markdown",

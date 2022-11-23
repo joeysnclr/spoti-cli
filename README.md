@@ -1,6 +1,5 @@
 # Spoti-CLI
 
-
 ![Spoti-CLI Preview](https://raw.githubusercontent.com/joeysnclr/terminal-spotify/master/screenshot.png)
 
 ### Intro
@@ -35,7 +34,6 @@ based keybindings for navigating and controlling the application.
 - g: go to first item on page
 - G: go to last item on page
 
-
 ##### Music Player
 
 - space: play/pause
@@ -44,7 +42,6 @@ based keybindings for navigating and controlling the application.
 - s: toggle shuffle
 - r: toggle repeat
 - i: show lyrics
-
 
 ##### Development/Utils
 
@@ -60,6 +57,10 @@ based keybindings for navigating and controlling the application.
 
 ##### Useful Functionality
 
+- New shortcuts
+  - m - main menu
+- Add more options to Main Menu
+  - Liked Songs
 - responsive lines
 - add setting; reset cache on startup
 - menu searching with / (esc to exit search mode)
@@ -80,7 +81,6 @@ based keybindings for navigating and controlling the application.
 ### Known Bugs
 
 - linux, can't play song in context
-
 
 ### Contributing
 

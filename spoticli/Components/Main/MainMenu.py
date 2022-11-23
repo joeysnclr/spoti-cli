@@ -1,6 +1,8 @@
-from spoticli.Components.Main.ViewManager import viewManager
-from spoticli.Components.Templates.Menu import Menu, MenuItem
-from spoticli.Components.Main.PlaylistMenu import PlaylistMenu
+from Components.Main.ViewManager import viewManager
+from Components.Templates.Menu import Menu, MenuItem
+from Components.Main.PlaylistMenu import PlaylistMenu
+from Components.Main.LikedSongs import LikedSongs
+
 
 class MainMenuItem(MenuItem):
 
@@ -16,8 +18,7 @@ class MainMenu(Menu):
 
     def __init__(self):
         items = [
-            MainMenuItem("Playlists", PlaylistMenu)
+            MainMenuItem("Playlists", PlaylistMenu),
+            MainMenuItem("Liked Songs", LikedSongs)
         ]
         super().__init__("Main Menu", items)
-
-

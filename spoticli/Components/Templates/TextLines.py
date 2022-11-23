@@ -1,5 +1,5 @@
 import math
-import spoticli.Components.Templates.Component as Component
+import Components.Templates.Component as Component
 
 
 class TextLines(Component.Component):
@@ -38,4 +38,3 @@ class TextLines(Component.Component):
 
     def prevPage(self):
         self.changePage(-1)
-

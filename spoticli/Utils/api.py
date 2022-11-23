@@ -1,11 +1,13 @@
 import time
 import requests
-from spoticli.Utils.utils import userdata, spotifyCache
-from spoticli.Utils.authenticate import getTokens
+from Utils.utils import userdata, spotifyCache
+from Utils.authenticate import getTokens
+
 
 def setUserData():
     user = spotifyGetAPI("/me/")
     userdata.set("userId", user['id'])
+
 
 def spotifyGetAPI(endpoint, cache=False, paged=False):
     if cache:
@@ -82,5 +84,3 @@ def spotifyPutAPI(endpoint):
         elif response.status_code == 429:
             retryAfter = int(response.headers['Retry-After'])
             time.sleep(retryAfter)
-
-

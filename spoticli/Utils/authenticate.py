@@ -2,11 +2,8 @@ import time
 import webbrowser
 import threading
 import requests
-from spoticli.Utils.utils import userdata
-from spoticli.Utils.server import runServer
-import spoticli.Utils.api
-
-
+from Utils.utils import userdata
+from Utils.server import runServer
 
 
 def getTokens():
@@ -86,5 +83,5 @@ def verify():
     # get access/refresh tokens and user info
     getTokens()
     print("retrieved tokens")
-    Utils.api.setUserData()
+    # setUserData()
     print("retrieved user data")

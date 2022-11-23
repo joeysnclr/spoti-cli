@@ -1,4 +1,4 @@
-from spoticli.Components.Templates.Component import Component
+from Components.Templates.Component import Component
 
 
 class Log(Component):
@@ -19,5 +19,6 @@ class Log(Component):
 
     def toggleDisplay(self):
         self.display = not self.display
+
 
 log = Log()

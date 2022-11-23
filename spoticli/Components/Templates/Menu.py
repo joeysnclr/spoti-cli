@@ -1,7 +1,7 @@
 import math
-from spoticli.Components.Main.ViewManager import viewManager
-from spoticli.Components.Templates.Component import Component
-from spoticli.Components.Main.Player import player
+from Components.Main.ViewManager import viewManager
+from Components.Templates.Component import Component
+from Components.Main.Player import player
 
 term = viewManager.term
 

@@ -1,7 +1,7 @@
 from blessed import Terminal
-from spoticli.Components.Templates.Component import Component
-from spoticli.Components.Main.HelpMenu import HelpMenu
-from spoticli.Utils.utils import spotifyCache
+from Components.Templates.Component import Component
+from Components.Main.HelpMenu import HelpMenu
+from Utils.utils import spotifyCache
 
 
 class ViewManager(Component):
@@ -15,10 +15,12 @@ class ViewManager(Component):
         self.player = None
         self.logOutput = None
         self.previousMainViews = []
+        self.mainMenu = None
         self.addShortcut("quit", self.quit)
         self.addShortcut("clearCache", spotifyCache.clear)
         self.addShortcut("prevView", self.previousMainView)
         self.addShortcut("helpMenu", self.showHelpMenu)
+        self.addShortcut("mainMenu", self.showMainMenu)
 
     def start(self):
         with self.term.cbreak(), self.term.hidden_cursor(), self.term.fullscreen():
@@ -30,7 +32,8 @@ class ViewManager(Component):
                 key = self.term.inkey(timeout=.03333)
                 # key = self.term.inkey(timeout=5)
                 # reset components in case mainView has changed
-                self.components = [self.title, self.mainView, self.player, self.logOutput]
+                self.components = [self.title,
+                                   self.mainView, self.player, self.logOutput]
                 self.componentHeights = self.calcHeights()
                 # shortcuts
                 self.keyPress(key)
@@ -77,7 +80,10 @@ class ViewManager(Component):
         heights = [titleHeight, mainViewHeight, playerHeight, logOutputHeight]
         return heights
 
-    def setMainView(self, component):
+    def setMainView(self, component, mainMenu=True):
+        if mainMenu:
+            # store inside object for showMainMenu
+            self.mainMenu = component
         if self.mainView != None:
             self.previousMainViews.append(self.mainView)
         self.mainView = component
@@ -89,6 +95,9 @@ class ViewManager(Component):
     def showHelpMenu(self):
         helpMenu = HelpMenu()
         self.setMainView(helpMenu)
+
+    def showMainMenu(self):
+        self.setMainView(self.mainMenu)
 
     def quit(self):
         self.running = False

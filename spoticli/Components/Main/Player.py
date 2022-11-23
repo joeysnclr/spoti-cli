@@ -2,12 +2,12 @@ import os
 import platform
 import time
 import threading
-from spoticli.Components.Main.ViewManager import viewManager
-from spoticli.Utils.utils import msFormat
-from spoticli.Utils.api import spotifyGetAPI, spotifyPutAPI, spotifyPostAPI
-from spoticli.Components.Templates.Component import Component
-from spoticli.Components.Main.Lyrics import Lyrics
-from spoticli.Components.Main.Log import log
+from Components.Main.ViewManager import viewManager
+from Utils.utils import msFormat
+from Utils.api import spotifyGetAPI, spotifyPutAPI, spotifyPostAPI
+from Components.Templates.Component import Component
+from Components.Main.Lyrics import Lyrics
+from Components.Main.Log import log
 
 term = viewManager.term
 
@@ -146,7 +146,6 @@ class Player(Component):
             self.runOsascript(script)
         log.log("Toggled Play")
 
-
     def toggleShuffle(self):
         if self.isLinux:
             newState = "true"
@@ -214,10 +213,11 @@ class Player(Component):
             # self.dbusAction(interface.OpenUri, uri)
             self.playSong(songURI)
         else:
+            if not contextURI:
+                return
             script = f'tell application "Spotify" to play track "{songURI}" in context "{contextURI}"'
             self.runOsascript(script)
         log.log(f"Played song {songURI} in context {contextURI}")
-
 
     def playSong(self, songURI):
         if self.isLinux:

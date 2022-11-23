@@ -1,5 +1,6 @@
-from spoticli.Components.Templates.TextLines import TextLines
-from spoticli.Utils.utils import shortcuts
+from Components.Templates.TextLines import TextLines
+from Utils.utils import shortcuts
+
 
 class HelpMenu(TextLines):
 
@@ -20,8 +21,3 @@ class HelpMenu(TextLines):
             line = "{:{}}   {}".format(shortcut, longestDesc, key)
             lines.append(line)
         return lines
-
-
-
-
-

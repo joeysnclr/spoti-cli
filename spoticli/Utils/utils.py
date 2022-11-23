@@ -5,16 +5,21 @@ import time
 import requests
 import os
 import sys
-from spoticli.Utils.DataFiles import DataFile, CacheFile, ShortcutsFile
-from spoticli.Utils.settings import defaultSettings
-from spoticli.Utils.shortcuts import defaultShortcuts
+from Utils.DataFiles import DataFile, CacheFile, ShortcutsFile
+from Utils.settings import defaultSettings
+from Utils.shortcuts import defaultShortcuts
 
 
-USERDATA_PATH = os.path.abspath(os.path.expanduser("~/.config/spoti-cli/userdata.json"))
-SETTINGS_PATH = os.path.abspath(os.path.expanduser("~/.config/spoti-cli/settings.json"))
-SHORTCUTS_PATH = os.path.abspath(os.path.expanduser("~/.config/spoti-cli/shortcuts.json"))
-SPOTIFY_CACHE_PATH = os.path.abspath(os.path.expanduser("~/.cache/spoti-cli/spotify.json"))
-GENIUS_CACHE_PATH = os.path.abspath(os.path.expanduser("~/.cache/spoti-cli/genius.json"))
+USERDATA_PATH = os.path.abspath(
+    os.path.expanduser("~/.config/spoti-cli/userdata.json"))
+SETTINGS_PATH = os.path.abspath(
+    os.path.expanduser("~/.config/spoti-cli/settings.json"))
+SHORTCUTS_PATH = os.path.abspath(
+    os.path.expanduser("~/.config/spoti-cli/shortcuts.json"))
+SPOTIFY_CACHE_PATH = os.path.abspath(
+    os.path.expanduser("~/.cache/spoti-cli/spotify.json"))
+GENIUS_CACHE_PATH = os.path.abspath(
+    os.path.expanduser("~/.cache/spoti-cli/genius.json"))
 
 
 userdata = DataFile(USERDATA_PATH)
@@ -28,4 +33,3 @@ def msFormat(ms):
     minutes = int(ms / 60000)
     seconds = int((ms - (minutes * 60000)) / 1000)
     return f"{minutes}:{seconds:02}"
-

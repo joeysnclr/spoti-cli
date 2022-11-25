@@ -19,7 +19,7 @@ def startApp():
 
 def main():
     # clears cache from last session
-    spotifyCache.clear()
+    # spotifyCache.clear() sike
 
     # spotify user log in if first time
     if not userdata.get("hasVerified", False):

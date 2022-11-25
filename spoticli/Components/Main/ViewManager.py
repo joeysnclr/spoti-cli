@@ -80,7 +80,7 @@ class ViewManager(Component):
         heights = [titleHeight, mainViewHeight, playerHeight, logOutputHeight]
         return heights
 
-    def setMainView(self, component, mainMenu=True):
+    def setMainView(self, component, mainMenu=False):
         if mainMenu:
             # store inside object for showMainMenu
             self.mainMenu = component

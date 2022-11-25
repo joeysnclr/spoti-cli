@@ -62,7 +62,6 @@ based keybindings for navigating and controlling the application.
 - Add more options to Main Menu
   - Liked Songs
 - responsive lines
-- add setting; reset cache on startup
 - menu searching with / (esc to exit search mode)
 - artist menu
 - album menu

@@ -23,7 +23,7 @@ def getTokens():
         body = {
             "grant_type": "authorization_code",
             "code": code,
-            "redirect_uri": "http://localhost:5000/auth",
+            "redirect_uri": "http://127.0.0.1:5000/auth",
             "client_id": clientId,
             "client_secret": clientSecret
         }
@@ -31,6 +31,8 @@ def getTokens():
     # send request and save access token and refresh token (if there is one) in config
     postUrl = "https://accounts.spotify.com/api/token"
     response = requests.post(postUrl, data=body).json()
+    if 'error' in response:
+        print(f"getTokens error, {response['error']}")
     accessToken = response['access_token']
     userdata.set("access_token", accessToken)
     if "refresh_token" in response:
@@ -44,7 +46,7 @@ def verify():
     serverThread.start()
     # print instructions
     print("1. Go to the Spotify Dashboard, create an app")
-    print("2. Edit settings > add http://localhost:5000/auth as a redirect uri")
+    print("2. Edit settings > add http://127.0.0.1:5000/auth as a redirect uri")
     print("3. Enter your Client ID and Client Secret")
     print("4. Login with your Spotify account")
     # get clientId and clientSecret from user, save in config
@@ -53,7 +55,7 @@ def verify():
     userdata.set("clientId", clientId)
     userdata.set("clientSecret", clientSecret)
     # set recirectURL, scopes, and generate spotify url
-    redirectUri = "http://localhost:5000/auth"
+    redirectUri = "http://127.0.0.1:5000/auth"
     scopes = "ugc-image-upload user-read-playback-state user-modify-playback-state user-read-currently-playing streaming app-remote-control user-read-email user-read-private playlist-read-collaborative playlist-modify-public playlist-read-private playlist-modify-private user-library-modify user-library-read user-top-read user-read-playback-position user-read-recently-played user-follow-read user-follow-modify"
     authURL = f"https://accounts.spotify.com/authorize?client_id={clientId}&response_type=code&redirect_uri={redirectUri}&scope={scopes}"
     # open spotify url in browser
@@ -69,7 +71,7 @@ def verify():
             code = userdata.get("code")
             codeRecieved = True
             try:
-                requests.get("http://localhost:5000/shutdown")
+                requests.get("http://127.0.0.1:5000/shutdown")
             except:
                 pass
         else:

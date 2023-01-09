@@ -1,12 +1,10 @@
-# Spoti-CLI
+# Spotify Terminal Application
 
 ![Spoti-CLI Preview](https://raw.githubusercontent.com/joeysnclr/terminal-spotify/master/screenshot.png)
 
 ### Intro
 
-Spoti-CLI (subject to name change) is a command line TUI (terminal user interface)
-client for Spotify. Designed with efficiency in mind, Terminal Spotify uses Vim
-based keybindings for navigating and controlling the application.
+Spotify Terminal Application is a terminal client for Spotify. Designed with efficiency in mind, it uses quick keybindings for navigating and controlling your music.
 
 ### Requirements
 
@@ -20,11 +18,13 @@ based keybindings for navigating and controlling the application.
 
 `spoticli`
 
+client-id and client-secret are retrieved from your Spotify Developer Application
+
 ### Shortcuts
 
 ##### Navigation
 
-- h: back to previous menu (not implemented)
+- h: back to previous menu
 - j: down 1 menu item
 - k: up 1 menu item
 - l: select menu item
@@ -49,40 +49,3 @@ based keybindings for navigating and controlling the application.
 - C: clear cache
 - D: toggle logging display
 
-### To Do
-
-##### Necesarry
-
-- add package to package repos (homebrew, apt, etc...)
-
-##### Useful Functionality
-
-- New shortcuts
-  - m - main menu
-- Add more options to Main Menu
-  - Liked Songs
-- responsive lines
-- menu searching with / (esc to exit search mode)
-- artist menu
-- album menu
-- podcast listening functionality
-
-##### Nice To Have
-
-- add lyrics caching (permanent)
-- Spotify search
-- audio visualizer
-- change Spotify device
-- player view only mode
-- minimal ui mode [here](https://i.redd.it/mnerempmqwm51.png)
-- centered lyrics/help menu
-
-### Known Bugs
-
-- linux, can't play song in context
-
-### Contributing
-
-Feel free to contribute any ideas or code to this project. Anything is welcomed!
-
-If you come across any issues please report them in the issues tab. Thank you!

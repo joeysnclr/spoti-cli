@@ -1,6 +1,6 @@
 # Spotify Terminal Application
 
-![Spoti-CLI Preview](https://raw.githubusercontent.com/joeysnclr/terminal-spotify/master/screenshot.png)
+![Spoti-CLI Preview](https://github.com/joeysnclr/spoti-cli/blob/dev/screenshot.png?raw=true)
 
 ### Intro
 

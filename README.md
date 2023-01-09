@@ -8,19 +8,29 @@ Spotify Terminal Application is a terminal client for Spotify. Designed with eff
 
 ### Requirements
 
-- python3 & pip
+- python3 & pip or from source
 - Spotify Premium
 - Spotify Developer Application
+- client-id and client-secret are retrieved from your Spotify Developer Application
 
 ### Install & Usage
+
+##### Pip
 
 `pip3 install spoti-cli`
 
 `spoticli`
 
-client-id and client-secret are retrieved from your Spotify Developer Application
+###### Source
 
-### Shortcuts
+`git clone https://github.com/joeysnclr/spoti-cli.git`
+`cd spoti-cli`
+`pip3 install -r requirements.txt`
+`python3 spoticli/__main__.py`
+
+
+### Shortcuts 
+`(~/.config/spoti-cli/shortcuts.json)`
 
 ##### Navigation
 

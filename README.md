@@ -6,6 +6,9 @@
 
 Spotify Terminal Application is a terminal client for Spotify. Designed with efficiency in mind, it uses quick keybindings for navigating and controlling your music.
 
+
+Supports Mac & Linux
+
 ### Requirements
 
 - python3 & pip or from source

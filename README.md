@@ -11,54 +11,25 @@ Supports Mac & Linux
 
 ### Requirements
 
-- python3 & pip or from source
+- Python3 and pip
 - Spotify Premium
-- Spotify Developer Application
-- client-id and client-secret are retrieved from your Spotify Developer Application
+- [Spotify Developer Application](https://developer.spotify.com/dashboard/login)
+    - client-id and client-secret are retrieved from your Spotify Developer Application
 
 ### Install & Usage
 
-##### Pip
-
-`pip3 install spoti-cli`
-
-`spoticli`
-
-###### Source
-
+Clone repository
 `git clone https://github.com/joeysnclr/spoti-cli.git`
+
+Change directory to repo
 `cd spoti-cli`
+
+Install requirements
 `pip3 install -r requirements.txt`
+
+Add `http://127.0.0.1:5000/auth` as a Redirect URI for your Spotify developer Application
+
+Run application & Input your **client-id** and **client-secret**
 `python3 spoticli/__main__.py`
 
-
-### Shortcuts 
-`(~/.config/spoti-cli/shortcuts.json)`
-
-##### Navigation
-
-- h: back to previous menu
-- j: down 1 menu item
-- k: up 1 menu item
-- l: select menu item
-- enter: select menu item
-- n: next page
-- N: previous page
-- g: go to first item on page
-- G: go to last item on page
-
-##### Music Player
-
-- space: play/pause
-- H: previous song
-- L: next song
-- s: toggle shuffle
-- r: toggle repeat
-- i: show lyrics
-
-##### Development/Utils
-
-- ?: help menu
-- C: clear cache
-- D: toggle logging display
-
+Press `?` for help.

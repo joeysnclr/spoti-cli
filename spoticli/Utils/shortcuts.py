@@ -1,4 +1,5 @@
 
+# remove ~/.config/spoti-cli/shortcuts.json to set the default to these values
 defaultShortcuts = {
     "up": "k",
     "down": "j",
@@ -15,9 +16,11 @@ defaultShortcuts = {
     "toggleRepeat": "r",
     "increaseVolume": "+",
     "decreaseVolume": "-",
-    "addToQueue": "a",
+    "addToQueue": "q",
+    "goToAlbum": "A",
+    "goToArtist": "a",
     "showLyrics": "i",
-    "quit": "q",
+    "quit": "Q",
     "helpMenu": "?",
     "mainMenu": "m",
     "clearCache": "C",

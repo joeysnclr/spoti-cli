@@ -1,33 +1,49 @@
 from Components.Main.ViewManager import viewManager
-from Components.Templates.Component import Component
-from Components.Templates.Menu import MenuItem
+from Components.Templates.Menu import MenuItem , Menu
 from Components.Main.Player import player
 from Utils.utils import msFormat
+from Utils.api import spotifyGetAPI
 
 term = viewManager.term
 
+class Album(Menu):
+
+    def __init__(self, albumName, albumId):
+        response_items = spotifyGetAPI(
+            f"/albums/{albumId}/tracks", cache=True, paged=True
+        )
+        menu_items = []
+        for item in response_items:
+            trackName = item['name']
+            songURI = item['uri']
+            duration = item['duration_ms']
+            mainArtist = item['artists'][0]['name']
+            menu_items.append(SongItem(trackName,mainArtist,albumName,albumId,songURI,duration, f"spotify:album:{albumId}"))
+        super().__init__(albumName, menu_items)
 
 class SongItem(MenuItem):
 
-    def __init__(self, songData, contextURI=None):
-        super().__init__(songData['track']['name'])
+    def __init__(self, trackName, mainArtist, albumName, albumId, songURI, duration, contextURI=None):
+        super().__init__(trackName)
         self.addShortcut("addToQueue", self.addToQueue)
-        self.songData = songData
-        self.songURI = songData['track']['uri']
+        self.addShortcut("goToAlbum", self.goToAlbum)
+        self.trackName = trackName
+        self.mainArtist = mainArtist
+        self.albumName = albumName
+        self.albumId = albumId
+        self.songURI = songURI
+        self.duration = duration
         self.contextURI = contextURI
 
     def formatSong(self, width):
-        track = self.songData['track']
-        songName = track['name']
-        dur = track['duration_ms']
-        time = msFormat(dur)
-        artistsStr = track['artists'][0]['name']
+        time = msFormat(self.duration)
+        artistsStr = self.mainArtist
         timeChars = 8
         songChars = int(width * .5)
         artistsChars = int(width * .5) - timeChars
 
         formatted = "{:{}.{}}{:{}.{}}{:>{}}".format(
-            songName, songChars, songChars - 2, artistsStr, artistsChars, artistsChars - 2, time, timeChars)
+            self.trackName, songChars, songChars - 2, artistsStr, artistsChars, artistsChars - 2, time, timeChars)
         return formatted
 
     def onSelect(self):
@@ -49,3 +65,6 @@ class SongItem(MenuItem):
 
     def addToQueue(self):
         player.addToQueue(self.songURI)
+
+    def goToAlbum(self):
+        viewManager.setMainView(Album(self.albumName, self.albumId))

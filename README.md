@@ -1,88 +1,35 @@
-# Spoti-CLI
+# Spotify Terminal Application
 
-![Spoti-CLI Preview](https://raw.githubusercontent.com/joeysnclr/terminal-spotify/master/screenshot.png)
+![Spoti-CLI Preview](https://github.com/joeysnclr/spoti-cli/blob/dev/screenshot.png?raw=true)
 
 ### Intro
 
-Spoti-CLI (subject to name change) is a command line TUI (terminal user interface)
-client for Spotify. Designed with efficiency in mind, Terminal Spotify uses Vim
-based keybindings for navigating and controlling the application.
+Spotify Terminal Application is a terminal client for Spotify. Designed with efficiency in mind, it uses quick keybindings for navigating and controlling your music.
+
+
+Supports Mac & Linux
 
 ### Requirements
 
-- python3 & pip
+- Python3 and pip
 - Spotify Premium
-- Spotify Developer Application
+- [Spotify Developer Application](https://developer.spotify.com/dashboard/login)
+    - client-id and client-secret are retrieved from your Spotify Developer Application
 
 ### Install & Usage
 
-`pip3 install spoti-cli`
+Clone repository
+`git clone https://github.com/joeysnclr/spoti-cli.git`
 
-`spoticli`
+Change directory to repo
+`cd spoti-cli`
 
-### Shortcuts
+Install requirements
+`pip3 install -r requirements.txt`
 
-##### Navigation
+Add `http://127.0.0.1:5000/auth` as a Redirect URI for your Spotify developer Application
 
-- h: back to previous menu (not implemented)
-- j: down 1 menu item
-- k: up 1 menu item
-- l: select menu item
-- enter: select menu item
-- n: next page
-- N: previous page
-- g: go to first item on page
-- G: go to last item on page
+Run application & Input your **client-id** and **client-secret**
+`python3 spoticli/__main__.py`
 
-##### Music Player
-
-- space: play/pause
-- H: previous song
-- L: next song
-- s: toggle shuffle
-- r: toggle repeat
-- i: show lyrics
-
-##### Development/Utils
-
-- ?: help menu
-- C: clear cache
-- D: toggle logging display
-
-### To Do
-
-##### Necesarry
-
-- add package to package repos (homebrew, apt, etc...)
-
-##### Useful Functionality
-
-- New shortcuts
-  - m - main menu
-- Add more options to Main Menu
-  - Liked Songs
-- responsive lines
-- menu searching with / (esc to exit search mode)
-- artist menu
-- album menu
-- podcast listening functionality
-
-##### Nice To Have
-
-- add lyrics caching (permanent)
-- Spotify search
-- audio visualizer
-- change Spotify device
-- player view only mode
-- minimal ui mode [here](https://i.redd.it/mnerempmqwm51.png)
-- centered lyrics/help menu
-
-### Known Bugs
-
-- linux, can't play song in context
-
-### Contributing
-
-Feel free to contribute any ideas or code to this project. Anything is welcomed!
-
-If you come across any issues please report them in the issues tab. Thank you!
+Press `?` for help.
